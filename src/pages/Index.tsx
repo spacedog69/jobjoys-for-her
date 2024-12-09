@@ -11,7 +11,7 @@ const Index = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <div className="bg-gradient-to-b from-primary via-primary/70 to-primary/20 pt-32 pb-20">
+      <div className="bg-gradient-to-b from-primary via-primary/70 to-primary/20 pt-40 pb-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h1 className="text-5xl font-bold mb-6 text-white">
