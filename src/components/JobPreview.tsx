@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export const JobPreview = () => {
   return (
-    <div className="py-16 bg-gradient-to-b from-primary/5 to-white">
+    <div className="py-16 bg-gradient-to-b from-primary/30 via-primary/5 to-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-2 mb-4">
