@@ -16,7 +16,7 @@ export const Navbar = () => {
 
   const isLandingPage = location.pathname === "/";
   const navbarClass = isLandingPage 
-    ? "bg-transparent backdrop-blur-sm z-50 border-b border-white/10"
+    ? "bg-gradient-to-b from-primary/30 via-primary/10 to-transparent backdrop-blur-sm z-50"
     : "bg-[#1A1F2C]/95 backdrop-blur-sm z-50 border-b border-white/10";
 
   const handleSignOut = async () => {
@@ -63,7 +63,7 @@ export const Navbar = () => {
   );
 
   return (
-    <nav className={navbarClass}>
+    <nav className={`${navbarClass} absolute w-full`}>
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
