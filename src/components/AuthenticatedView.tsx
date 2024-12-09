@@ -21,7 +21,7 @@ export const AuthenticatedView = () => {
   const [sectorFilter, setSectorFilter] = useState<string>("all");
   const itemsPerPage = 30;
 
-  const { data: jobs, isLoading } = useQuery({
+  const { data: jobs, isLoading: isJobsLoading } = useQuery({
     queryKey: ['jobs', contractFilter, locationFilter, sectorFilter],
     queryFn: async () => {
       let query = supabase
@@ -45,7 +45,7 @@ export const AuthenticatedView = () => {
     },
   });
 
-  const { data: filters } = useQuery({
+  const { data: filters, isLoading: isFiltersLoading } = useQuery({
     queryKey: ['job-filters'],
     queryFn: async () => {
       const { data: jobs } = await supabase
@@ -91,10 +91,11 @@ export const AuthenticatedView = () => {
               sectorFilter={sectorFilter}
               setSectorFilter={setSectorFilter}
               filters={filters}
+              isLoading={isFiltersLoading}
             />
           </div>
           
-          {isLoading ? (
+          {isJobsLoading ? (
             <div className="space-y-4">
               {[...Array(5)].map((_, i) => (
                 <div key={i} className="animate-pulse">
