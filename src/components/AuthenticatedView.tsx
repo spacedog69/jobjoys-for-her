@@ -3,16 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { SearchBar } from "@/components/SearchBar";
 import { Navbar } from "@/components/Navbar";
-import { JobFilters } from "@/components/jobs/JobFilters";
 import { JobTable } from "@/components/jobs/JobTable";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
+import { JobListingHeader } from "@/components/jobs/JobListingHeader";
+import { JobPagination } from "@/components/jobs/JobPagination";
 
 export const AuthenticatedView = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -82,26 +75,18 @@ export const AuthenticatedView = () => {
         </div>
 
         <div className="bg-white rounded-lg shadow-sm p-6">
-          <div className="flex justify-between items-center mb-6">
-            <div className="space-y-1">
-              <h2 className="text-2xl font-bold">Latest Job Opportunities</h2>
-              <p className="text-sm text-gray-500">
-                {isJobsLoading 
-                  ? "Loading jobs..." 
-                  : `Showing ${totalJobs} ${totalJobs === 1 ? 'job' : 'jobs'}`}
-              </p>
-            </div>
-            <JobFilters 
-              contractFilter={contractFilter}
-              setContractFilter={setContractFilter}
-              locationFilter={locationFilter}
-              setLocationFilter={setLocationFilter}
-              sectorFilter={sectorFilter}
-              setSectorFilter={setSectorFilter}
-              filters={filters}
-              isLoading={isFiltersLoading}
-            />
-          </div>
+          <JobListingHeader
+            isLoading={isJobsLoading}
+            totalJobs={totalJobs}
+            contractFilter={contractFilter}
+            setContractFilter={setContractFilter}
+            locationFilter={locationFilter}
+            setLocationFilter={setLocationFilter}
+            sectorFilter={sectorFilter}
+            setSectorFilter={setSectorFilter}
+            filters={filters}
+            isFiltersLoading={isFiltersLoading}
+          />
           
           {isJobsLoading ? (
             <div className="space-y-4">
@@ -117,36 +102,11 @@ export const AuthenticatedView = () => {
                 <JobTable jobs={paginatedJobs} />
               </div>
 
-              <div className="mt-6">
-                <Pagination>
-                  <PaginationContent>
-                    <PaginationItem>
-                      <PaginationPrevious 
-                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                        className={currentPage === 1 ? 'pointer-events-none opacity-50' : ''}
-                      />
-                    </PaginationItem>
-                    
-                    {[...Array(totalPages)].map((_, i) => (
-                      <PaginationItem key={i + 1}>
-                        <PaginationLink
-                          onClick={() => setCurrentPage(i + 1)}
-                          isActive={currentPage === i + 1}
-                        >
-                          {i + 1}
-                        </PaginationLink>
-                      </PaginationItem>
-                    ))}
-                    
-                    <PaginationItem>
-                      <PaginationNext 
-                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                        className={currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}
-                      />
-                    </PaginationItem>
-                  </PaginationContent>
-                </Pagination>
-              </div>
+              <JobPagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                setCurrentPage={setCurrentPage}
+              />
             </>
           )}
         </div>

@@ -1,12 +1,5 @@
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import { FilterSelect } from "./FilterSelect";
 
 interface JobFiltersProps {
   contractFilter: string;
@@ -46,107 +39,32 @@ export const JobFilters = ({
 
   return (
     <div className="flex flex-wrap gap-4 bg-white p-2 rounded-md items-center">
-      <Select value={contractFilter} onValueChange={setContractFilter} disabled={isLoading}>
-        <SelectTrigger className="w-[180px]">
-          {isLoading ? (
-            <div className="flex items-center gap-2">
-              <Loader2 className="h-4 w-4 animate-spin" />
-              <span>Loading...</span>
-            </div>
-          ) : (
-            <SelectValue placeholder="Contract Type" />
-          )}
-        </SelectTrigger>
-        <SelectContent 
-          className="bg-white"
-          align="start"
-          sideOffset={8}
-          position="popper"
-          side="bottom"
-        >
-          <SelectItem value="all" className="animate-in fade-in-50 duration-100">All Types</SelectItem>
-          {filters?.contractTypes
-            ?.filter(type => type !== null && type !== "")
-            .map((type, index) => (
-              <SelectItem 
-                key={type} 
-                value={type}
-                className="animate-in fade-in-50 duration-100"
-                style={{ animationDelay: `${index * 50}ms` }}
-              >
-                {type}
-              </SelectItem>
-            ))}
-        </SelectContent>
-      </Select>
+      <FilterSelect
+        value={contractFilter}
+        onValueChange={setContractFilter}
+        options={filters?.contractTypes || []}
+        placeholder="Contract Type"
+        isLoading={isLoading}
+        label="Types"
+      />
 
-      <Select value={locationFilter} onValueChange={setLocationFilter} disabled={isLoading}>
-        <SelectTrigger className="w-[180px]">
-          {isLoading ? (
-            <div className="flex items-center gap-2">
-              <Loader2 className="h-4 w-4 animate-spin" />
-              <span>Loading...</span>
-            </div>
-          ) : (
-            <SelectValue placeholder="Location" />
-          )}
-        </SelectTrigger>
-        <SelectContent 
-          className="bg-white"
-          align="start"
-          sideOffset={8}
-          position="popper"
-          side="bottom"
-        >
-          <SelectItem value="all" className="animate-in fade-in-50 duration-100">All Locations</SelectItem>
-          {filters?.locations
-            ?.filter(location => location !== null && location !== "")
-            .map((location, index) => (
-              <SelectItem 
-                key={location} 
-                value={location}
-                className="animate-in fade-in-50 duration-100"
-                style={{ animationDelay: `${index * 50}ms` }}
-              >
-                {location}
-              </SelectItem>
-            ))}
-        </SelectContent>
-      </Select>
+      <FilterSelect
+        value={locationFilter}
+        onValueChange={setLocationFilter}
+        options={filters?.locations || []}
+        placeholder="Location"
+        isLoading={isLoading}
+        label="Locations"
+      />
 
-      <Select value={sectorFilter} onValueChange={setSectorFilter} disabled={isLoading}>
-        <SelectTrigger className="w-[180px]">
-          {isLoading ? (
-            <div className="flex items-center gap-2">
-              <Loader2 className="h-4 w-4 animate-spin" />
-              <span>Loading...</span>
-            </div>
-          ) : (
-            <SelectValue placeholder="Sector" />
-          )}
-        </SelectTrigger>
-        <SelectContent 
-          className="bg-white"
-          align="start"
-          sideOffset={8}
-          position="popper"
-          side="bottom"
-        >
-          <SelectItem value="all" className="animate-in fade-in-50 duration-100">All Sectors</SelectItem>
-          {filters?.sectors
-            ?.filter(sector => sector !== null && sector !== "")
-            .map((sector, index) => (
-              <SelectItem 
-                key={sector} 
-                value={sector}
-                className="animate-in fade-in-50 duration-100"
-                style={{ animationDelay: `${index * 50}ms` }}
-              >
-                {sector}
-              </SelectItem>
-            ))}
-        </SelectContent>
-      </Select>
+      <FilterSelect
+        value={sectorFilter}
+        onValueChange={setSectorFilter}
+        options={filters?.sectors || []}
+        placeholder="Sector"
+        isLoading={isLoading}
+        label="Sectors"
+      />
 
       {hasActiveFilters && (
         <Button
