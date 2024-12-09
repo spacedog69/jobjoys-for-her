@@ -3,6 +3,7 @@ import { SearchBar } from "@/components/SearchBar";
 import { Reviews } from "@/components/Reviews";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Briefcase, Users, Award, Star } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
@@ -79,9 +80,10 @@ const Index = () => {
           {/* Job Listings Preview */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {[...Array(6)].map((_, i) => (
-              <div
+              <Link
+                to={`/job/${i + 1}`}
                 key={i}
-                className="bg-white p-6 rounded-lg shadow-sm border animate-fade-in opacity-0"
+                className="bg-white p-6 rounded-lg shadow-sm border animate-fade-in opacity-0 hover:shadow-md transition-shadow"
                 style={{ animationDelay: `${i * 0.1}s`, animationFillMode: "forwards" }}
               >
                 <div className="flex items-start justify-between mb-4">
@@ -100,7 +102,7 @@ const Index = () => {
                   <span>$90k - $120k</span>
                   <span>Posted 2 days ago</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
