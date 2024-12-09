@@ -54,7 +54,7 @@ export const Navbar = () => {
   );
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-[#1A1F2C]/95 backdrop-blur-sm z-50 border-b border-white/10">
+    <nav className="bg-[#1A1F2C]/95 backdrop-blur-sm z-50 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
