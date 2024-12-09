@@ -18,10 +18,11 @@ export const AuthenticatedView = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [contractFilter, setContractFilter] = useState<string>("all");
   const [locationFilter, setLocationFilter] = useState<string>("all");
+  const [sectorFilter, setSectorFilter] = useState<string>("all");
   const itemsPerPage = 30;
 
   const { data: jobs, isLoading } = useQuery({
-    queryKey: ['jobs', contractFilter, locationFilter],
+    queryKey: ['jobs', contractFilter, locationFilter, sectorFilter],
     queryFn: async () => {
       let query = supabase
         .from('Jobs_Directory')
@@ -33,6 +34,9 @@ export const AuthenticatedView = () => {
       }
       if (locationFilter && locationFilter !== "all") {
         query = query.eq('location', locationFilter);
+      }
+      if (sectorFilter && sectorFilter !== "all") {
+        query = query.eq('sector', sectorFilter);
       }
 
       const { data, error } = await query;
@@ -46,14 +50,16 @@ export const AuthenticatedView = () => {
     queryFn: async () => {
       const { data: jobs } = await supabase
         .from('Jobs_Directory')
-        .select('contractType, location');
+        .select('contractType, location, sector');
       
       const uniqueContractTypes = [...new Set(jobs?.map(job => job.contractType).filter(Boolean))];
       const uniqueLocations = [...new Set(jobs?.map(job => job.location).filter(Boolean))];
+      const uniqueSectors = [...new Set(jobs?.map(job => job.sector).filter(Boolean))];
       
       return {
         contractTypes: uniqueContractTypes,
-        locations: uniqueLocations
+        locations: uniqueLocations,
+        sectors: uniqueSectors
       };
     }
   });
@@ -82,6 +88,8 @@ export const AuthenticatedView = () => {
               setContractFilter={setContractFilter}
               locationFilter={locationFilter}
               setLocationFilter={setLocationFilter}
+              sectorFilter={sectorFilter}
+              setSectorFilter={setSectorFilter}
               filters={filters}
             />
           </div>

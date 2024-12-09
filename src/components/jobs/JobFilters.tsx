@@ -11,9 +11,12 @@ interface JobFiltersProps {
   setContractFilter: (value: string) => void;
   locationFilter: string;
   setLocationFilter: (value: string) => void;
+  sectorFilter: string;
+  setSectorFilter: (value: string) => void;
   filters: {
     contractTypes: string[];
     locations: string[];
+    sectors: string[];
   } | undefined;
 }
 
@@ -22,10 +25,12 @@ export const JobFilters = ({
   setContractFilter,
   locationFilter,
   setLocationFilter,
+  sectorFilter,
+  setSectorFilter,
   filters,
 }: JobFiltersProps) => {
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 bg-white p-2 rounded-md">
       <Select value={contractFilter} onValueChange={setContractFilter}>
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Contract Type" />
@@ -53,6 +58,22 @@ export const JobFilters = ({
             .map((location) => (
               <SelectItem key={location} value={location}>
                 {location}
+              </SelectItem>
+            ))}
+        </SelectContent>
+      </Select>
+
+      <Select value={sectorFilter} onValueChange={setSectorFilter}>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Sector" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">All Sectors</SelectItem>
+          {filters?.sectors
+            .filter(sector => sector !== null && sector !== "") // Filter out null and empty strings
+            .map((sector) => (
+              <SelectItem key={sector} value={sector}>
+                {sector}
               </SelectItem>
             ))}
         </SelectContent>
