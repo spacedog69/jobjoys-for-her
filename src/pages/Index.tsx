@@ -107,13 +107,15 @@ const Index = () => {
           </div>
 
           <div className="text-center">
-            <Button
-              size="lg"
-              className="bg-primary text-white hover:bg-primary/90"
-            >
-              View All Jobs
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            <Link to="/signup">
+              <Button
+                size="lg"
+                className="bg-primary text-white hover:bg-primary/90"
+              >
+                View All Jobs
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
