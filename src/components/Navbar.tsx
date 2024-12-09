@@ -54,8 +54,8 @@ export const Navbar = () => {
   );
 
   return (
-    <nav className="absolute w-full bg-transparent z-10">
-      <div className="w-full px-4 py-8">
+    <nav className="fixed top-0 left-0 right-0 bg-[#1A1F2C]/95 backdrop-blur-sm z-50 border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
             <span className="text-2xl font-bold text-[#E5DEFF]">
@@ -69,7 +69,7 @@ export const Navbar = () => {
               size="icon"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              <Menu className="h-6 w-6" />
+              <Menu className="h-6 w-6 text-white" />
             </Button>
           ) : (
             <div className="flex items-center space-x-4">
@@ -80,7 +80,7 @@ export const Navbar = () => {
 
         {/* Mobile Menu */}
         {isMobile && isMenuOpen && (
-          <div className="mt-4 flex flex-col space-y-2 bg-white/95 p-4 rounded-lg shadow-lg animate-fade-in">
+          <div className="mt-4 flex flex-col space-y-2 bg-[#1A1F2C]/95 backdrop-blur-sm p-4 rounded-lg shadow-lg animate-fade-in">
             <NavLinks />
           </div>
         )}
