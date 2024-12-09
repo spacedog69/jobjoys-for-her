@@ -3,6 +3,57 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 export const JobPreview = () => {
+  const jobs = [
+    {
+      title: "Senior Product Designer",
+      company: "Remote Tech Co.",
+      type: "Full-time",
+      description: "Join our team and create amazing user experiences for our global customers.",
+      salary: "$90k - $120k",
+      posted: "2 days ago"
+    },
+    {
+      title: "Accountant",
+      company: "Global Payments",
+      type: "Part-time",
+      description: "Handle financial operations and reporting for a leading payments company.",
+      salary: "$60k - $70k",
+      posted: "1 day ago"
+    },
+    {
+      title: "Marketing Coordinator",
+      company: "Ecomm Star",
+      type: "Full-time",
+      description: "Drive marketing initiatives for a fast-growing e-commerce platform.",
+      salary: "$90k - $100k",
+      posted: "3 days ago"
+    },
+    {
+      title: "Project Manager",
+      company: "Engine S.L",
+      type: "Full-time",
+      description: "Lead and deliver complex projects in a dynamic environment.",
+      salary: "$130k - $140k",
+      posted: "1 week ago"
+    },
+    {
+      title: "Data Analyst",
+      company: "DataTech Solutions",
+      type: "Full-time",
+      description: "Transform data into actionable insights for business growth.",
+      salary: "$85k - $95k",
+      posted: "4 days ago"
+    },
+    {
+      title: "UX Researcher",
+      company: "Innovation Labs",
+      type: "Full-time",
+      description: "Conduct user research to shape product development decisions.",
+      salary: "$95k - $115k",
+      posted: "5 days ago"
+    }
+  ];
+
   return (
     <div className="py-16 bg-[#F8F8F9]">
       <div className="container mx-auto px-4">
@@ -22,7 +73,7 @@ export const JobPreview = () => {
 
         {/* Job Listings Preview */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {[...Array(6)].map((_, i) => (
+          {jobs.map((job, i) => (
             <Link
               to={`/job/${i + 1}`}
               key={i}
@@ -31,19 +82,19 @@ export const JobPreview = () => {
             >
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h3 className="font-semibold text-lg mb-1">Senior Product Designer</h3>
-                  <p className="text-primary">Remote Tech Co.</p>
+                  <h3 className="font-semibold text-lg mb-1">{job.title}</h3>
+                  <p className="text-primary">{job.company}</p>
                 </div>
                 <span className="bg-secondary px-3 py-1 rounded-full text-sm">
-                  Full-time
+                  {job.type}
                 </span>
               </div>
               <p className="text-gray-600 mb-4">
-                Join our team and create amazing user experiences for our global customers.
+                {job.description}
               </p>
               <div className="flex justify-between items-center text-sm text-gray-500">
-                <span>$90k - $120k</span>
-                <span>Posted 2 days ago</span>
+                <span>{job.salary}</span>
+                <span>Posted {job.posted}</span>
               </div>
             </Link>
           ))}
