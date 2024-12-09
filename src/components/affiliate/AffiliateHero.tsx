@@ -3,7 +3,7 @@ import { Rocket } from "lucide-react";
 
 export const AffiliateHero = () => {
   return (
-    <div className="text-center space-y-8">
+    <div className="text-center space-y-8 mt-32">
       <h1 className="text-4xl md:text-6xl font-bold mb-6">
         <span className="text-[#E5DEFF]">Empower Women in Tech:</span>
         <br />
