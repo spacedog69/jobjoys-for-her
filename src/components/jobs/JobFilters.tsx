@@ -57,12 +57,23 @@ export const JobFilters = ({
             <SelectValue placeholder="Contract Type" />
           )}
         </SelectTrigger>
-        <SelectContent className="bg-white">
-          <SelectItem value="all">All Types</SelectItem>
+        <SelectContent 
+          className="bg-white"
+          align="start"
+          sideOffset={8}
+          position="popper"
+          side="bottom"
+        >
+          <SelectItem value="all" className="animate-in fade-in-50 duration-100">All Types</SelectItem>
           {filters?.contractTypes
             ?.filter(type => type !== null && type !== "")
-            .map((type) => (
-              <SelectItem key={type} value={type}>
+            .map((type, index) => (
+              <SelectItem 
+                key={type} 
+                value={type}
+                className="animate-in fade-in-50 duration-100"
+                style={{ animationDelay: `${index * 50}ms` }}
+              >
                 {type}
               </SelectItem>
             ))}
@@ -80,12 +91,23 @@ export const JobFilters = ({
             <SelectValue placeholder="Location" />
           )}
         </SelectTrigger>
-        <SelectContent className="bg-white">
-          <SelectItem value="all">All Locations</SelectItem>
+        <SelectContent 
+          className="bg-white"
+          align="start"
+          sideOffset={8}
+          position="popper"
+          side="bottom"
+        >
+          <SelectItem value="all" className="animate-in fade-in-50 duration-100">All Locations</SelectItem>
           {filters?.locations
             ?.filter(location => location !== null && location !== "")
-            .map((location) => (
-              <SelectItem key={location} value={location}>
+            .map((location, index) => (
+              <SelectItem 
+                key={location} 
+                value={location}
+                className="animate-in fade-in-50 duration-100"
+                style={{ animationDelay: `${index * 50}ms` }}
+              >
                 {location}
               </SelectItem>
             ))}
@@ -103,12 +125,23 @@ export const JobFilters = ({
             <SelectValue placeholder="Sector" />
           )}
         </SelectTrigger>
-        <SelectContent className="bg-white">
-          <SelectItem value="all">All Sectors</SelectItem>
+        <SelectContent 
+          className="bg-white"
+          align="start"
+          sideOffset={8}
+          position="popper"
+          side="bottom"
+        >
+          <SelectItem value="all" className="animate-in fade-in-50 duration-100">All Sectors</SelectItem>
           {filters?.sectors
             ?.filter(sector => sector !== null && sector !== "")
-            .map((sector) => (
-              <SelectItem key={sector} value={sector}>
+            .map((sector, index) => (
+              <SelectItem 
+                key={sector} 
+                value={sector}
+                className="animate-in fade-in-50 duration-100"
+                style={{ animationDelay: `${index * 50}ms` }}
+              >
                 {sector}
               </SelectItem>
             ))}

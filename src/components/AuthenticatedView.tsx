@@ -70,6 +70,7 @@ export const AuthenticatedView = () => {
   );
 
   const totalPages = jobs ? Math.ceil(jobs.length / itemsPerPage) : 0;
+  const totalJobs = jobs?.length || 0;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -82,7 +83,14 @@ export const AuthenticatedView = () => {
 
         <div className="bg-white rounded-lg shadow-sm p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold">Latest Job Opportunities</h2>
+            <div className="space-y-1">
+              <h2 className="text-2xl font-bold">Latest Job Opportunities</h2>
+              <p className="text-sm text-gray-500">
+                {isJobsLoading 
+                  ? "Loading jobs..." 
+                  : `Showing ${totalJobs} ${totalJobs === 1 ? 'job' : 'jobs'}`}
+              </p>
+            </div>
             <JobFilters 
               contractFilter={contractFilter}
               setContractFilter={setContractFilter}
