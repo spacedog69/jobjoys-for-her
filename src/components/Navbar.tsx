@@ -54,7 +54,7 @@ export const Navbar = () => {
   );
 
   return (
-    <nav className="fixed w-full bg-transparent z-10">
+    <nav className="absolute w-full bg-transparent z-10">
       <div className="w-full px-4 py-8">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
