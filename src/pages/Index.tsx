@@ -10,7 +10,7 @@ const Index = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-primary/10 to-accent/10 py-20">
+      <div className="bg-gradient-to-b from-primary/5 via-primary/10 to-primary/20 py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h1 className="text-5xl font-bold mb-6">
@@ -25,7 +25,7 @@ const Index = () => {
       </div>
 
       {/* Features Section */}
-      <div className="py-16 container mx-auto px-4">
+      <div className="py-16 container mx-auto px-4 bg-gradient-to-b from-primary/20 to-primary/5">
         <div className="grid md:grid-cols-3 gap-8">
           <div className="text-center p-6">
             <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -58,7 +58,7 @@ const Index = () => {
       </div>
 
       {/* Directory Preview Section */}
-      <div className="py-16 bg-gradient-to-b from-white to-primary/5">
+      <div className="py-16 bg-gradient-to-b from-primary/5 to-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-2 mb-4">
