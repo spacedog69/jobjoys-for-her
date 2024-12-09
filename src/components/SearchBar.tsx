@@ -9,17 +9,31 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useSession } from "@supabase/auth-helpers-react";
 
 export const SearchBar = () => {
   const [jobTitle, setJobTitle] = useState("");
   const [location, setLocation] = useState("");
   const [showDialog, setShowDialog] = useState(false);
+  const session = useSession();
+  const navigate = useNavigate();
+  const isLandingPage = useLocation().pathname === "/";
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (jobTitle || location) {
+    if (session) {
+      // If user is logged in, navigate to jobs page with search params
+      const params = new URLSearchParams();
+      if (jobTitle) params.append("title", jobTitle);
+      if (location) params.append("location", location);
+      navigate(`/jobs?${params.toString()}`);
+    } else if (isLandingPage) {
+      // Show dialog only on landing page for non-authenticated users
       setShowDialog(true);
+    } else {
+      // If not on landing page, redirect to login
+      navigate("/login");
     }
   };
 
@@ -62,7 +76,7 @@ export const SearchBar = () => {
                   <> in <span className="font-semibold">{location}</span></>
                 )}
               </p>
-              <div className="bg-secondary/20 p-6 rounded-lg space-y-4">
+              <div className="p-6 rounded-lg space-y-4">
                 <h3 className="font-semibold text-lg text-foreground">
                   Get Instant Access to:
                 </h3>
