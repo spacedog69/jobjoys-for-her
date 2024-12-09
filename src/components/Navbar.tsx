@@ -45,7 +45,7 @@ export const Navbar = () => {
           <Link to="/login">
             <Button variant="outline">Log In</Button>
           </Link>
-          <Link to="/login">
+          <Link to="/signup">
             <Button className="bg-accent hover:bg-accent/90">Sign Up</Button>
           </Link>
         </>
