@@ -58,7 +58,7 @@ export const Navbar = () => {
       <div className="w-full px-4 py-8">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold text-[#1A1F2C]">
+            <span className="text-2xl font-bold text-[#E5DEFF]">
               Home Jobs for Women
             </span>
           </Link>
