@@ -130,13 +130,15 @@ const Index = () => {
           <p className="text-xl mb-8 max-w-2xl mx-auto">
             Join thousands of women who have found their perfect remote job through our platform
           </p>
-          <Button
-            size="lg"
-            className="bg-white text-accent hover:bg-white/90"
-          >
-            Get Started Now
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
+          <Link to="/signup">
+            <Button
+              size="lg"
+              className="bg-white text-accent hover:bg-white/90"
+            >
+              Get Started Now
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
