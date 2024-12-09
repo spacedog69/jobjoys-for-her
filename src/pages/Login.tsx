@@ -3,6 +3,7 @@ import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -10,10 +11,24 @@ export default function Login() {
   useEffect(() => {
     // Check if user is already logged in
     supabase.auth.onAuthStateChange((event, session) => {
+      console.log("Auth state changed:", event, session);
       if (session) {
+        console.log("User is logged in, redirecting to home");
         navigate("/");
       }
     });
+
+    // Check initial session
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      console.log("Initial session check:", session);
+      if (session) {
+        console.log("Initial session exists, redirecting to home");
+        navigate("/");
+      }
+    };
+    
+    checkSession();
   }, [navigate]);
 
   return (
@@ -35,6 +50,10 @@ export default function Login() {
           }}
           providers={[]}
           theme="light"
+          onError={(error) => {
+            console.error("Auth error:", error);
+            toast.error(error.message);
+          }}
         />
       </div>
     </div>
