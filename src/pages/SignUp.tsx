@@ -15,7 +15,7 @@ export default function SignUp() {
       <Navbar />
       
       <div className="max-w-4xl mx-auto pt-24 px-4">
-        <div className="bg-secondary/20 rounded-lg p-6 mb-12">
+        <div className="rounded-lg p-6 mb-12">
           <h1 className="text-4xl md:text-6xl font-bold mb-2 text-[#E5DEFF]">
             Discover 65,000+
           </h1>
