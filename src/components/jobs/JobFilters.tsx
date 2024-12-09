@@ -38,7 +38,7 @@ export const JobFilters = ({
         <SelectContent>
           <SelectItem value="all">All Types</SelectItem>
           {filters?.contractTypes
-            .filter(type => type !== null && type !== "") // Filter out null and empty strings
+            ?.filter(type => type !== null && type !== "") // Filter out null and empty strings
             .map((type) => (
               <SelectItem key={type} value={type}>
                 {type}
@@ -54,7 +54,7 @@ export const JobFilters = ({
         <SelectContent>
           <SelectItem value="all">All Locations</SelectItem>
           {filters?.locations
-            .filter(location => location !== null && location !== "") // Filter out null and empty strings
+            ?.filter(location => location !== null && location !== "") // Filter out null and empty strings
             .map((location) => (
               <SelectItem key={location} value={location}>
                 {location}
@@ -70,7 +70,7 @@ export const JobFilters = ({
         <SelectContent>
           <SelectItem value="all">All Sectors</SelectItem>
           {filters?.sectors
-            .filter(sector => sector !== null && sector !== "") // Filter out null and empty strings
+            ?.filter(sector => sector !== null && sector !== "") // Filter out null and empty strings
             .map((sector) => (
               <SelectItem key={sector} value={sector}>
                 {sector}
