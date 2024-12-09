@@ -35,7 +35,7 @@ export const JobFilters = ({
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Contract Type" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="bg-white">
           <SelectItem value="all">All Types</SelectItem>
           {filters?.contractTypes
             ?.filter(type => type !== null && type !== "") // Filter out null and empty strings
@@ -51,7 +51,7 @@ export const JobFilters = ({
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Location" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="bg-white">
           <SelectItem value="all">All Locations</SelectItem>
           {filters?.locations
             ?.filter(location => location !== null && location !== "") // Filter out null and empty strings
@@ -67,7 +67,7 @@ export const JobFilters = ({
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Sector" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="bg-white">
           <SelectItem value="all">All Sectors</SelectItem>
           {filters?.sectors
             ?.filter(sector => sector !== null && sector !== "") // Filter out null and empty strings
