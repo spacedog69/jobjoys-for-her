@@ -1,13 +1,23 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/Navbar";
 import { ArrowLeft, Building2, MapPin, Briefcase, Clock, BadgeDollarSign } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useSession } from "@supabase/auth-helpers-react";
+import { toast } from "sonner";
 
 const JobPost = () => {
   const { id } = useParams();
+  const session = useSession();
+  const navigate = useNavigate();
+
+  // Redirect to login if not authenticated
+  if (!session) {
+    navigate("/login");
+    return null;
+  }
 
   const { data: job, isLoading } = useQuery({
     queryKey: ['job', id],
@@ -25,6 +35,15 @@ const JobPost = () => {
     },
     enabled: !!id,
   });
+
+  const handleApply = () => {
+    if (job?.LinkedinURL) {
+      window.open(job.LinkedinURL, '_blank');
+      toast.success("Redirecting to application page");
+    } else {
+      toast.error("Application link not available");
+    }
+  };
 
   if (isLoading) {
     return (
@@ -55,12 +74,6 @@ const JobPost = () => {
       </div>
     );
   }
-
-  const handleApply = () => {
-    if (job.LinkedinURL) {
-      window.open(job.LinkedinURL, '_blank');
-    }
-  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -103,7 +116,7 @@ const JobPost = () => {
           <Button
             size="lg"
             onClick={handleApply}
-            className="w-full md:w-auto"
+            className="w-full md:w-auto bg-primary hover:bg-primary/90"
             disabled={!job.LinkedinURL}
           >
             Apply Now
