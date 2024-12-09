@@ -9,7 +9,6 @@ export default function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if user is already logged in
     supabase.auth.onAuthStateChange((event, session) => {
       console.log("Auth state changed:", event, session);
       if (session) {
@@ -18,7 +17,6 @@ export default function Login() {
       }
     });
 
-    // Check initial session
     const checkSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       console.log("Initial session check:", session);
@@ -50,10 +48,6 @@ export default function Login() {
           }}
           providers={[]}
           theme="light"
-          onError={(error) => {
-            console.error("Auth error:", error);
-            toast.error(error.message);
-          }}
         />
       </div>
     </div>
