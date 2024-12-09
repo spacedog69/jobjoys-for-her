@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { toast } from "sonner";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -12,6 +12,12 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const isLandingPage = location.pathname === "/";
+  const navbarClass = isLandingPage 
+    ? "bg-transparent backdrop-blur-sm z-50 border-b border-white/10"
+    : "bg-[#1A1F2C]/95 backdrop-blur-sm z-50 border-b border-white/10";
 
   const handleSignOut = async () => {
     try {
@@ -57,7 +63,7 @@ export const Navbar = () => {
   );
 
   return (
-    <nav className="bg-[#1A1F2C]/95 backdrop-blur-sm z-50 border-b border-white/10">
+    <nav className={navbarClass}>
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
