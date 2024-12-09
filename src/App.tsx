@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import JobPost from "./pages/JobPost";
 import PostJob from "./pages/PostJob";
+import Affiliates from "./pages/Affiliates";
 import { supabase } from "@/integrations/supabase/client";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="/signup" element={<SignUp />} />
             <Route path="/job/:id" element={<JobPost />} />
             <Route path="/post-job" element={<PostJob />} />
+            <Route path="/affiliates" element={<Affiliates />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
