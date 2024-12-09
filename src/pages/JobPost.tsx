@@ -12,15 +12,18 @@ const JobPost = () => {
   const { data: job, isLoading } = useQuery({
     queryKey: ['job', id],
     queryFn: async () => {
+      if (!id) throw new Error('No ID provided');
+      
       const { data, error } = await supabase
         .from('Jobs_Directory')
         .select('*')
-        .eq('id', id)
+        .eq('id', parseInt(id))
         .single();
 
       if (error) throw error;
       return data;
     },
+    enabled: !!id,
   });
 
   if (isLoading) {
