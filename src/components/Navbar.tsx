@@ -15,10 +15,13 @@ export const Navbar = () => {
 
   const handleSignOut = async () => {
     try {
-      await supabase.auth.signOut();
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      
       toast.success("Signed out successfully");
       navigate("/login");
     } catch (error) {
+      console.error("Sign out error:", error);
       toast.error("Error signing out");
     }
   };
