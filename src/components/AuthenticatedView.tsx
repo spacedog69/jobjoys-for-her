@@ -97,7 +97,7 @@ export const AuthenticatedView = () => {
   const totalJobs = jobs?.length || 0;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#1A1F2C]">
       <Navbar />
       
       <main className="container mx-auto px-4 pt-24 pb-12">
