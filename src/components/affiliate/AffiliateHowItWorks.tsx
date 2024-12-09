@@ -1,5 +1,3 @@
-import { Link } from "@/components/ui/link";
-
 export const AffiliateHowItWorks = () => {
   const steps = [
     {
