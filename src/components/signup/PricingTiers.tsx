@@ -47,7 +47,7 @@ export const PricingTiers = ({ onPlanSelect }: PricingTiersProps) => {
             <p className="text-3xl font-bold mb-4">$6<span className="text-lg">/week</span></p>
             <Button 
               className="w-full bg-[#B87333] hover:bg-[#B87333]/80 text-white"
-              onClick={() => handleSubscribe('price_copper')}
+              onClick={() => handleSubscribe('prod_RMnfdVfWh94JoY')}
             >
               Subscribe Now
             </Button>
@@ -65,7 +65,7 @@ export const PricingTiers = ({ onPlanSelect }: PricingTiersProps) => {
             <p className="text-3xl font-bold mb-4">$20<span className="text-lg">/month</span></p>
             <Button 
               className="w-full bg-[#C0C0C0] hover:bg-[#C0C0C0]/80 text-[#232836]"
-              onClick={() => handleSubscribe('price_silver')}
+              onClick={() => handleSubscribe('prod_RMnf5HNr3zRSmD')}
             >
               Subscribe Now
             </Button>
@@ -83,7 +83,7 @@ export const PricingTiers = ({ onPlanSelect }: PricingTiersProps) => {
             <p className="text-3xl font-bold mb-4">$89<span className="text-lg">/year</span></p>
             <Button 
               className="w-full bg-[#FFD700] hover:bg-[#FFD700]/80 text-[#232836]"
-              onClick={() => handleSubscribe('price_gold')}
+              onClick={() => handleSubscribe('prod_RMnr97Vnh1kun4')}
             >
               Subscribe Now
             </Button>
@@ -121,7 +121,7 @@ export const PricingTiers = ({ onPlanSelect }: PricingTiersProps) => {
             </ul>
             <Button 
               className="w-full bg-gradient-to-r from-[#E5E4E2] to-[#C0C0C0] hover:from-[#C0C0C0] hover:to-[#E5E4E2] text-[#232836] font-bold text-lg py-6"
-              onClick={() => handleSubscribe('price_platinum')}
+              onClick={() => handleSubscribe('prod_RMnr0rtgSgtXK5')}
             >
               Accelerate Your Career
             </Button>
