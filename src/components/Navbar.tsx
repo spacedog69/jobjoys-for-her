@@ -22,7 +22,7 @@ export const Navbar = () => {
     <nav className="absolute w-full bg-transparent z-10">
       <div className="container mx-auto px-4 py-8 flex items-center justify-between">
         <Link to="/" className="flex items-center space-x-2">
-          <span className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <span className="text-2xl font-bold text-[#1A1F2C]">
             Home Jobs for Women
           </span>
         </Link>
