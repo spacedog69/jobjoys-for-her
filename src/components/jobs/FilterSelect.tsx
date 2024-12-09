@@ -5,12 +5,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { Loader2 } from "lucide-react";
 
 interface FilterSelectProps {
@@ -30,54 +24,42 @@ export const FilterSelect = ({
   placeholder,
   isLoading,
   label,
-  tooltip,
 }: FilterSelectProps) => {
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <div>
-            <Select value={value} onValueChange={onValueChange} disabled={isLoading}>
-              <SelectTrigger className="w-[180px]">
-                {isLoading ? (
-                  <div className="flex items-center gap-2">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    <span>Loading...</span>
-                  </div>
-                ) : (
-                  <SelectValue placeholder={placeholder} />
-                )}
-              </SelectTrigger>
-              <SelectContent 
-                className="bg-white"
-                align="start"
-                sideOffset={8}
-                position="popper"
-                side="bottom"
-              >
-                <SelectItem value="all" className="animate-in fade-in-50 duration-100">
-                  All {label}
-                </SelectItem>
-                {options
-                  ?.filter(option => option !== null && option !== "")
-                  .map((option, index) => (
-                    <SelectItem 
-                      key={option} 
-                      value={option}
-                      className="animate-in fade-in-50 duration-100"
-                      style={{ animationDelay: `${index * 50}ms` }}
-                    >
-                      {option}
-                    </SelectItem>
-                  ))}
-              </SelectContent>
-            </Select>
+    <Select value={value} onValueChange={onValueChange} disabled={isLoading}>
+      <SelectTrigger className="w-[180px]">
+        {isLoading ? (
+          <div className="flex items-center gap-2">
+            <Loader2 className="h-4 w-4 animate-spin" />
+            <span>Loading...</span>
           </div>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>{tooltip}</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+        ) : (
+          <SelectValue placeholder={placeholder} />
+        )}
+      </SelectTrigger>
+      <SelectContent 
+        className="bg-white"
+        align="start"
+        sideOffset={8}
+        position="popper"
+        side="bottom"
+      >
+        <SelectItem value="all" className="animate-in fade-in-50 duration-100">
+          All {label}
+        </SelectItem>
+        {options
+          ?.filter(option => option !== null && option !== "")
+          .map((option, index) => (
+            <SelectItem 
+              key={option} 
+              value={option}
+              className="animate-in fade-in-50 duration-100"
+              style={{ animationDelay: `${index * 50}ms` }}
+            >
+              {option}
+            </SelectItem>
+          ))}
+      </SelectContent>
+    </Select>
   );
 };
