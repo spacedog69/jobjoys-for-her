@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Rocket } from "lucide-react";
+import { Rocket, Star } from "lucide-react";
 
 export const AffiliateHero = () => {
   return (
@@ -16,11 +16,9 @@ export const AffiliateHero = () => {
 
       <div className="flex justify-center items-center gap-2">
         {Array.from({ length: 5 }).map((_, i) => (
-          <img
+          <Star
             key={i}
-            src="https://api.dicebear.com/7.x/avatars/svg?seed=${i}"
-            alt="Avatar"
-            className="w-10 h-10 rounded-full border-2 border-primary"
+            className="w-8 h-8 text-primary fill-primary"
           />
         ))}
       </div>
