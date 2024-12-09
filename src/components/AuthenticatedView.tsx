@@ -16,7 +16,6 @@ export const AuthenticatedView = () => {
   const [sectorFilter, setSectorFilter] = useState<string>("all");
   const itemsPerPage = 30;
 
-  // Query for saved preferences
   const { data: userPreferences } = useQuery({
     queryKey: ['user-preferences'],
     queryFn: async () => {
@@ -27,13 +26,11 @@ export const AuthenticatedView = () => {
         .eq('user_id', session.user.id);
       
       if (error) throw error;
-      // Return the first preference if it exists, otherwise return null
       return data?.[0] || null;
     },
     enabled: !!session?.user,
   });
 
-  // Load saved preferences
   useEffect(() => {
     if (userPreferences) {
       if (userPreferences.preferred_contract_types?.[0]) {
@@ -108,7 +105,7 @@ export const AuthenticatedView = () => {
           <SearchBar />
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm p-6">
+        <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
           <JobListingHeader
             isLoading={isJobsLoading}
             totalJobs={totalJobs}
@@ -132,8 +129,10 @@ export const AuthenticatedView = () => {
             </div>
           ) : (
             <>
-              <div className="overflow-hidden">
-                <JobTable jobs={paginatedJobs} />
+              <div className="overflow-x-auto -mx-4 md:mx-0">
+                <div className="min-w-full inline-block align-middle">
+                  <JobTable jobs={paginatedJobs} />
+                </div>
               </div>
 
               <JobPagination

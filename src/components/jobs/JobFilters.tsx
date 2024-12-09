@@ -71,7 +71,7 @@ export const JobFilters = ({
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap gap-4 bg-white p-2 rounded-md items-center">
+      <div className="flex flex-col sm:flex-row flex-wrap gap-4 bg-white p-2 rounded-md items-start sm:items-center">
         <FilterSelect
           value={contractFilter}
           onValueChange={setContractFilter}
@@ -79,7 +79,7 @@ export const JobFilters = ({
           placeholder="Contract Type"
           isLoading={isLoading}
           label="Types"
-          tooltip="Filter jobs by employment type (Full-time, Part-time, Contract, etc.)"
+          tooltip="Filter jobs by employment type"
         />
 
         <FilterSelect
@@ -89,7 +89,7 @@ export const JobFilters = ({
           placeholder="Location"
           isLoading={isLoading}
           label="Locations"
-          tooltip="Filter jobs by location (Remote, Office, Hybrid)"
+          tooltip="Filter jobs by location"
         />
 
         <FilterSelect
@@ -103,12 +103,12 @@ export const JobFilters = ({
         />
 
         {hasActiveFilters && (
-          <>
+          <div className="flex flex-wrap gap-2 mt-2 sm:mt-0">
             <Button
               variant="outline"
               size="sm"
               onClick={handleClearFilters}
-              className="ml-2"
+              className="w-full sm:w-auto"
             >
               Clear filters
             </Button>
@@ -117,12 +117,12 @@ export const JobFilters = ({
                 variant="outline"
                 size="sm"
                 onClick={handleSaveFilters}
-                className="ml-2"
+                className="w-full sm:w-auto"
               >
                 Save filters
               </Button>
             )}
-          </>
+          </div>
         )}
       </div>
 
