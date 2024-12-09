@@ -15,7 +15,7 @@ export default function SignUp() {
       {/* Hero Section */}
       <div className="max-w-4xl mx-auto pt-24 px-4">
         <div className="bg-secondary/20 rounded-lg p-6 mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold mb-2">
+          <h1 className="text-4xl md:text-6xl font-bold mb-2 text-[#E5DEFF]">
             Discover 65,000+
           </h1>
           <h2 className="text-4xl md:text-6xl font-bold text-primary">
@@ -34,7 +34,7 @@ export default function SignUp() {
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold mb-4">$6<span className="text-lg">/week</span></p>
-              <Button className="w-full bg-[#B87333] hover:bg-[#B87333]/80">
+              <Button className="w-full bg-[#B87333] hover:bg-[#B87333]/80 text-white">
                 Subscribe Now
               </Button>
             </CardContent>
