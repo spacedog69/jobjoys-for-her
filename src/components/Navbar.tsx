@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { toast } from "sonner";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Menu } from "lucide-react";
+import { Menu, LogIn, UserPlus } from "lucide-react";
 import { useState } from "react";
 
 export const Navbar = () => {
@@ -52,10 +52,16 @@ export const Navbar = () => {
       ) : (
         <>
           <Link to="/login">
-            <Button className="bg-accent hover:bg-accent/90 text-white">Log In</Button>
+            <Button className="bg-accent hover:bg-accent/90 text-white flex items-center gap-2">
+              <LogIn className="h-4 w-4" />
+              Log In
+            </Button>
           </Link>
           <Link to="/signup">
-            <Button className="bg-accent hover:bg-accent/90">Sign Up</Button>
+            <Button className="bg-accent hover:bg-accent/90 flex items-center gap-2">
+              <UserPlus className="h-4 w-4" />
+              Sign Up
+            </Button>
           </Link>
         </>
       )}
