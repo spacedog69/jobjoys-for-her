@@ -24,11 +24,11 @@ export const AuthenticatedView = () => {
       const { data, error } = await supabase
         .from('user_preferences')
         .select('*')
-        .eq('user_id', session.user.id)
-        .single();
+        .eq('user_id', session.user.id);
       
       if (error) throw error;
-      return data;
+      // Return the first preference if it exists, otherwise return null
+      return data?.[0] || null;
     },
     enabled: !!session?.user,
   });
