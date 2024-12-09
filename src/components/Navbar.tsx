@@ -1,7 +1,23 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { toast } from "sonner";
 
 export const Navbar = () => {
+  const session = useSession();
+  const supabase = useSupabaseClient();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    try {
+      await supabase.auth.signOut();
+      toast.success("Signed out successfully");
+      navigate("/login");
+    } catch (error) {
+      toast.error("Error signing out");
+    }
+  };
+
   return (
     <nav className="border-b bg-white">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -17,12 +33,25 @@ export const Navbar = () => {
           <Link to="/affiliates">
             <Button variant="outline">Affiliates</Button>
           </Link>
-          <Link to="/login">
-            <Button variant="outline">Log In</Button>
-          </Link>
-          <Link to="/signup">
-            <Button className="bg-accent hover:bg-accent/90">Sign Up</Button>
-          </Link>
+          {session ? (
+            <>
+              <Link to="/profile">
+                <Button variant="outline">Profile</Button>
+              </Link>
+              <Button onClick={handleSignOut} variant="outline">
+                Sign Out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Link to="/login">
+                <Button variant="outline">Log In</Button>
+              </Link>
+              <Link to="/login">
+                <Button className="bg-accent hover:bg-accent/90">Sign Up</Button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>
