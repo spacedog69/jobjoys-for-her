@@ -1,18 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Search, Rocket, Bell } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Search, Rocket, Bell, DollarSign } from "lucide-react";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { supabase } from "@/integrations/supabase/client";
+import { Navbar } from "@/components/Navbar";
+import { Reviews } from "@/components/Reviews";
 
 export default function SignUp() {
-  const navigate = useNavigate();
-
   return (
-    <div className="min-h-screen bg-[#1A1F2C] text-white py-12 px-4">
+    <div className="min-h-screen bg-[#1A1F2C] text-white">
+      <Navbar />
+      
       {/* Hero Section */}
-      <div className="max-w-4xl mx-auto mb-12">
+      <div className="max-w-4xl mx-auto pt-24 px-4">
         <div className="bg-secondary/20 rounded-lg p-6 mb-12">
           <h1 className="text-4xl md:text-6xl font-bold mb-2">
             Discover 65,000+
@@ -22,8 +23,56 @@ export default function SignUp() {
           </h2>
         </div>
 
+        {/* Subscription Tiers */}
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <Card className="bg-[#232836] border-none text-white hover:scale-105 transition-transform">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span>Copper</span>
+                <DollarSign className="w-6 h-6 text-[#B87333]" />
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-3xl font-bold mb-4">$6<span className="text-lg">/week</span></p>
+              <Button className="w-full bg-[#B87333] hover:bg-[#B87333]/80">
+                Subscribe Now
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-[#232836] border-none text-white hover:scale-105 transition-transform">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span>Silver</span>
+                <DollarSign className="w-6 h-6 text-[#C0C0C0]" />
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-3xl font-bold mb-4">$20<span className="text-lg">/month</span></p>
+              <Button className="w-full bg-[#C0C0C0] hover:bg-[#C0C0C0]/80 text-[#232836]">
+                Subscribe Now
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-[#232836] border-none text-white hover:scale-105 transition-transform">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span>Gold</span>
+                <DollarSign className="w-6 h-6 text-[#FFD700]" />
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-3xl font-bold mb-4">$89<span className="text-lg">/year</span></p>
+              <Button className="w-full bg-[#FFD700] hover:bg-[#FFD700]/80 text-[#232836]">
+                Subscribe Now
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Main Card */}
-        <Card className="bg-[#232836] border-none text-white">
+        <Card className="bg-[#232836] border-none text-white mb-12">
           <CardHeader>
             <CardTitle className="text-2xl md:text-3xl text-center">
               Unlock 65,000+ jobs
@@ -109,6 +158,9 @@ export default function SignUp() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Reviews Section */}
+        <Reviews />
       </div>
     </div>
   );
