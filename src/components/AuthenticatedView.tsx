@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { SearchBar } from "@/components/SearchBar";
@@ -6,13 +6,47 @@ import { Navbar } from "@/components/Navbar";
 import { JobTable } from "@/components/jobs/JobTable";
 import { JobListingHeader } from "@/components/jobs/JobListingHeader";
 import { JobPagination } from "@/components/jobs/JobPagination";
+import { useSession } from "@supabase/auth-helpers-react";
 
 export const AuthenticatedView = () => {
+  const session = useSession();
   const [currentPage, setCurrentPage] = useState(1);
   const [contractFilter, setContractFilter] = useState<string>("all");
   const [locationFilter, setLocationFilter] = useState<string>("all");
   const [sectorFilter, setSectorFilter] = useState<string>("all");
   const itemsPerPage = 30;
+
+  // Query for saved preferences
+  const { data: userPreferences } = useQuery({
+    queryKey: ['user-preferences'],
+    queryFn: async () => {
+      if (!session?.user) return null;
+      const { data, error } = await supabase
+        .from('user_preferences')
+        .select('*')
+        .eq('user_id', session.user.id)
+        .single();
+      
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!session?.user,
+  });
+
+  // Load saved preferences
+  useEffect(() => {
+    if (userPreferences) {
+      if (userPreferences.preferred_contract_types?.[0]) {
+        setContractFilter(userPreferences.preferred_contract_types[0]);
+      }
+      if (userPreferences.preferred_locations?.[0]) {
+        setLocationFilter(userPreferences.preferred_locations[0]);
+      }
+      if (userPreferences.preferred_sectors?.[0]) {
+        setSectorFilter(userPreferences.preferred_sectors[0]);
+      }
+    }
+  }, [userPreferences]);
 
   const { data: jobs, isLoading: isJobsLoading } = useQuery({
     queryKey: ['jobs', contractFilter, locationFilter, sectorFilter],
