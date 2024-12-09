@@ -32,11 +32,13 @@ export const JobFilters = ({
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">All Types</SelectItem>
-          {filters?.contractTypes.map((type) => (
-            <SelectItem key={type} value={type || "unknown"}>
-              {type || "Unknown"}
-            </SelectItem>
-          ))}
+          {filters?.contractTypes
+            .filter(type => type !== null && type !== "") // Filter out null and empty strings
+            .map((type) => (
+              <SelectItem key={type} value={type}>
+                {type}
+              </SelectItem>
+            ))}
         </SelectContent>
       </Select>
 
@@ -46,11 +48,13 @@ export const JobFilters = ({
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">All Locations</SelectItem>
-          {filters?.locations.map((location) => (
-            <SelectItem key={location} value={location || "unknown"}>
-              {location || "Unknown"}
-            </SelectItem>
-          ))}
+          {filters?.locations
+            .filter(location => location !== null && location !== "") // Filter out null and empty strings
+            .map((location) => (
+              <SelectItem key={location} value={location}>
+                {location}
+              </SelectItem>
+            ))}
         </SelectContent>
       </Select>
     </div>

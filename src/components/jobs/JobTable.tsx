@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 interface Job {
-  id: string;
+  id: number; // Changed from string to number to match the database type
   position: string;
   Company: string;
   location: string;
