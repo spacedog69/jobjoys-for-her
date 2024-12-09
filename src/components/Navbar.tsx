@@ -26,24 +26,24 @@ export const Navbar = () => {
   const NavLinks = () => (
     <>
       <Link to="/post-job">
-        <Button variant="outline">Post a Job</Button>
+        <Button className="bg-accent hover:bg-accent/90 text-white">Post a Job</Button>
       </Link>
       <Link to="/affiliates">
-        <Button variant="outline">Affiliates</Button>
+        <Button className="bg-accent hover:bg-accent/90 text-white">Affiliates</Button>
       </Link>
       {session ? (
         <>
           <Link to="/profile">
-            <Button variant="outline">Profile</Button>
+            <Button className="bg-accent hover:bg-accent/90 text-white">Profile</Button>
           </Link>
-          <Button onClick={handleSignOut} variant="outline">
+          <Button onClick={handleSignOut} className="bg-accent hover:bg-accent/90 text-white">
             Sign Out
           </Button>
         </>
       ) : (
         <>
           <Link to="/login">
-            <Button variant="outline">Log In</Button>
+            <Button className="bg-accent hover:bg-accent/90 text-white">Log In</Button>
           </Link>
           <Link to="/signup">
             <Button className="bg-accent hover:bg-accent/90">Sign Up</Button>
