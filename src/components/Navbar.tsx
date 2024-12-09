@@ -19,8 +19,8 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="border-b bg-white">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+    <nav className="absolute w-full bg-transparent z-10">
+      <div className="container mx-auto px-4 py-8 flex items-center justify-between">
         <Link to="/" className="flex items-center space-x-2">
           <span className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Home Jobs for Women

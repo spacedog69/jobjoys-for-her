@@ -10,13 +10,13 @@ const Index = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <div className="bg-gradient-to-b from-primary/5 via-primary/10 to-primary/20 py-20">
+      <div className="bg-gradient-to-b from-primary via-primary/70 to-primary/20 pt-32 pb-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h1 className="text-5xl font-bold mb-6">
+            <h1 className="text-5xl font-bold mb-6 text-white">
               Find Your Dream Remote Job 👩‍💻
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-xl text-white/90 mb-8">
               Search 65,000+ work from home jobs and get more interviews
             </p>
             <SearchBar />
