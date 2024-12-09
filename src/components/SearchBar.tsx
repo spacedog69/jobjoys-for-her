@@ -77,7 +77,7 @@ export const SearchBar = () => {
                   className="w-full bg-primary hover:bg-primary/90 text-white mt-4"
                   size="lg"
                 >
-                  Sign Up Now - It's Free!
+                  Sign Up Now
                 </Button>
               </Link>
             </DialogDescription>
