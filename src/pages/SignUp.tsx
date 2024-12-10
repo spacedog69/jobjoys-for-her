@@ -2,13 +2,23 @@ import { Card } from "@/components/ui/card";
 import { Navbar } from "@/components/Navbar";
 import { Reviews } from "@/components/Reviews";
 import { useSubscriptionStatus } from "@/components/subscription/SubscriptionCheck";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PricingTiers } from "@/components/signup/PricingTiers";
 import { AuthSection } from "@/components/signup/AuthSection";
+import { handleStripeSuccess } from "@/components/signup/utils/subscriptionHandler";
+import { useSearchParams } from "react-router-dom";
 
 export default function SignUp() {
   const { isSubscribed, isLoading } = useSubscriptionStatus();
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [searchParams] = useSearchParams();
+  
+  useEffect(() => {
+    const sessionId = searchParams.get('session_id');
+    if (sessionId) {
+      handleStripeSuccess(sessionId);
+    }
+  }, [searchParams]);
 
   return (
     <div className="min-h-screen bg-[#1A1F2C] text-white">
