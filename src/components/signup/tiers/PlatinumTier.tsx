@@ -36,7 +36,7 @@ export const PlatinumTier = ({ onSubscribe }: PlatinumTierProps) => (
       </ul>
       <Button 
         className="w-full bg-gradient-to-r from-[#E5E4E2] to-[#C0C0C0] hover:from-[#C0C0C0] hover:to-[#E5E4E2] text-[#232836] font-bold text-lg py-6"
-        onClick={() => onSubscribe('prod_RMnr0rtgSgtXK5')}
+        onClick={() => onSubscribe('price_1QU4FuEUIbv2rtd6DbEljzeM')}
       >
         Accelerate Your Career
       </Button>

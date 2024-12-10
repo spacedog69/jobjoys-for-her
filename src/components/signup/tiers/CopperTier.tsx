@@ -18,7 +18,7 @@ export const CopperTier = ({ onSubscribe }: CopperTierProps) => (
       <p className="text-3xl font-bold mb-4">$6<span className="text-lg">/week</span></p>
       <Button 
         className="w-full bg-[#B87333] hover:bg-[#B87333]/80 text-white"
-        onClick={() => onSubscribe('prod_RMnfdVfWh94JoY')}
+        onClick={() => onSubscribe('price_1QU44EEUIbv2rtd6IK5iQcxC')}
       >
         Subscribe Now
       </Button>

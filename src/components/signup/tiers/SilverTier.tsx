@@ -18,7 +18,7 @@ export const SilverTier = ({ onSubscribe }: SilverTierProps) => (
       <p className="text-3xl font-bold mb-4">$20<span className="text-lg">/month</span></p>
       <Button 
         className="w-full bg-[#C0C0C0] hover:bg-[#C0C0C0]/80 text-[#232836]"
-        onClick={() => onSubscribe('prod_RMnf5HNr3zRSmD')}
+        onClick={() => onSubscribe('price_1QU44SEUIbv2rtd65taE4xOI')}
       >
         Subscribe Now
       </Button>
