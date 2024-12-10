@@ -3,27 +3,19 @@ import { toast } from "sonner";
 
 export const handleSubscribe = async (priceId: string) => {
   try {
-    const { data: { session } } = await supabase.auth.getSession();
-    
-    const response = await fetch('/api/create-checkout-session', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
-      },
-      body: JSON.stringify({
+    const { data, error } = await supabase.functions.invoke('create-checkout-session', {
+      body: { 
         priceId,
         successUrl: `${window.location.origin}/signup?session_id={CHECKOUT_SESSION_ID}`,
         cancelUrl: `${window.location.origin}/signup`,
-      }),
+      }
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to create checkout session');
+    if (error) throw error;
+    
+    if (data?.url) {
+      window.location.href = data.url;
     }
-
-    const { url } = await response.json();
-    window.location.href = url;
   } catch (error) {
     console.error('Error:', error);
     toast.error('Failed to start checkout process');
@@ -32,13 +24,13 @@ export const handleSubscribe = async (priceId: string) => {
 
 export const handleStripeSuccess = async (sessionId: string) => {
   try {
-    const response = await fetch(`/api/verify-subscription?session_id=${sessionId}`);
-    if (!response.ok) {
-      throw new Error('Failed to verify subscription');
-    }
+    const { data, error } = await supabase.functions.invoke('verify-subscription', {
+      body: { sessionId }
+    });
+
+    if (error) throw error;
     
-    const { status } = await response.json();
-    if (status === 'complete') {
+    if (data?.status === 'complete') {
       toast.success('Subscription activated successfully!');
       // Redirect to profile completion
       window.location.href = '/profile';
