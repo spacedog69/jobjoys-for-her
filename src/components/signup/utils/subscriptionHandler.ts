@@ -1,23 +1,8 @@
 import { toast } from "sonner";
-import { SupabaseClient } from "@supabase/supabase-js";
-import { Session } from "@supabase/supabase-js";
-import { NavigateFunction } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
-export const handleSubscribe = async (
-  priceId: string,
-  session: Session | null,
-  supabase: SupabaseClient,
-  navigate?: NavigateFunction
-) => {
+export const handleSubscribe = async (priceId: string) => {
   try {
-    if (!session) {
-      toast.error("Please sign in first");
-      if (navigate) {
-        navigate("/login");
-      }
-      return;
-    }
-
     const { data, error } = await supabase.functions.invoke('create-checkout-session', {
       body: { priceId }
     });
