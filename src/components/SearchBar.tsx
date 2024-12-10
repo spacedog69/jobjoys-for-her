@@ -23,16 +23,14 @@ export const SearchBar = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (session) {
-      // If user is logged in, navigate to jobs page with search params
+      // If user is logged in, update URL params on the current page
       const params = new URLSearchParams();
       if (jobTitle) params.append("title", jobTitle);
       if (location) params.append("location", location);
-      navigate(`/jobs?${params.toString()}`);
+      navigate(`/?${params.toString()}`);
     } else if (isLandingPage) {
-      // Show dialog only on landing page for non-authenticated users
       setShowDialog(true);
     } else {
-      // If not on landing page, redirect to login
       navigate("/login");
     }
   };

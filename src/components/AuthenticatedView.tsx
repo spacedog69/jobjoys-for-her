@@ -7,14 +7,19 @@ import { JobTable } from "@/components/jobs/JobTable";
 import { JobListingHeader } from "@/components/jobs/JobListingHeader";
 import { JobPagination } from "@/components/jobs/JobPagination";
 import { useSession } from "@supabase/auth-helpers-react";
+import { useSearchParams } from "react-router-dom";
 
 export const AuthenticatedView = () => {
   const session = useSession();
+  const [searchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [contractFilter, setContractFilter] = useState<string>("all");
   const [locationFilter, setLocationFilter] = useState<string>("all");
   const [sectorFilter, setSectorFilter] = useState<string>("all");
   const itemsPerPage = 30;
+
+  const searchTitle = searchParams.get("title");
+  const searchLocation = searchParams.get("location");
 
   const { data: userPreferences } = useQuery({
     queryKey: ['user-preferences'],
@@ -46,12 +51,20 @@ export const AuthenticatedView = () => {
   }, [userPreferences]);
 
   const { data: jobs, isLoading: isJobsLoading } = useQuery({
-    queryKey: ['jobs', contractFilter, locationFilter, sectorFilter],
+    queryKey: ['jobs', contractFilter, locationFilter, sectorFilter, searchTitle, searchLocation],
     queryFn: async () => {
       let query = supabase
         .from('Jobs_Directory')
         .select('*')
         .order('created_at', { ascending: false });
+
+      if (searchTitle) {
+        query = query.ilike('position', `%${searchTitle}%`);
+      }
+      
+      if (searchLocation) {
+        query = query.ilike('location', `%${searchLocation}%`);
+      }
 
       if (contractFilter && contractFilter !== "all") {
         query = query.eq('contractType', contractFilter);
