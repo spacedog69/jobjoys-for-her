@@ -1,16 +1,11 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
 
 interface BasicInfoFormProps {
   register: any;
-  date: Date | undefined;
-  setDate: (date: Date | undefined) => void;
+  date: string | undefined;
+  setDate: (date: string | undefined) => void;
 }
 
 export const BasicInfoForm = ({ register, date, setDate }: BasicInfoFormProps) => {
@@ -36,28 +31,15 @@ export const BasicInfoForm = ({ register, date, setDate }: BasicInfoFormProps) =
       </div>
 
       <div>
-        <Label>Date of Birth</Label>
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              className={cn(
-                "w-full justify-start text-left font-normal",
-                !date && "text-muted-foreground"
-              )}
-            >
-              {date ? format(date, "PPP") : "Pick a date"}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0 bg-white" align="start">
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={setDate}
-              initialFocus
-            />
-          </PopoverContent>
-        </Popover>
+        <Label htmlFor="dateOfBirth">Date of Birth</Label>
+        <Input
+          id="dateOfBirth"
+          placeholder="DD/MM/YYYY"
+          className="bg-[#1A1F2C]"
+          {...register("dateOfBirth")}
+          onChange={(e) => setDate(e.target.value)}
+          value={date}
+        />
       </div>
 
       <div>
