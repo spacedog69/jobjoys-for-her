@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useSession } from "@supabase/auth-helpers-react";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User, CreditCard, Settings } from "lucide-react";
+import { handleSubscribe } from "@/components/signup/utils/subscriptionHandler";
+import { format } from "date-fns";
 
 interface ProfileFormProps {
   profile: any;
@@ -23,6 +25,22 @@ export function ProfileForm({ profile, type }: ProfileFormProps) {
     billing_address: profile?.billing_address || '',
     phone_number: profile?.phone_number || '',
     company_name: profile?.company_name || '',
+  });
+
+  const { data: subscriptionData } = useQuery({
+    queryKey: ['subscription-details'],
+    queryFn: async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return null;
+
+      const response = await fetch('/api/get-subscription-details', {
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
+      if (!response.ok) throw new Error('Failed to fetch subscription details');
+      return response.json();
+    },
   });
 
   const updateProfile = useMutation({
@@ -102,6 +120,28 @@ export function ProfileForm({ profile, type }: ProfileFormProps) {
         <CreditCard className="h-5 w-5" />
         <h2 className="text-xl font-semibold">Billing Information</h2>
       </div>
+      
+      {subscriptionData?.subscription ? (
+        <div className="bg-[#1A1F2C] p-4 rounded-lg mb-6">
+          <h3 className="text-lg font-medium mb-2">Current Subscription</h3>
+          <p className="text-muted-foreground">Plan: {subscriptionData.subscription.name}</p>
+          <p className="text-muted-foreground">
+            Started: {format(new Date(subscriptionData.subscription.current_period_start * 1000), 'PPP')}
+          </p>
+          <p className="text-muted-foreground">
+            Expires: {format(new Date(subscriptionData.subscription.current_period_end * 1000), 'PPP')}
+          </p>
+          <Button 
+            onClick={() => handleSubscribe('price_copper_weekly')} 
+            className="mt-4"
+          >
+            Extend Subscription
+          </Button>
+        </div>
+      ) : (
+        <p className="text-muted-foreground mb-6">No active subscription found.</p>
+      )}
+
       <div className="space-y-2">
         <Label htmlFor="billing_address">Billing Address</Label>
         <Input
