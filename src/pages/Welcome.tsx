@@ -60,7 +60,8 @@ export default function Welcome() {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const { error } = await supabase.auth.signUp({
+      // First, sign up the user
+      const { data: authData, error: signUpError } = await supabase.auth.signUp({
         email: data.email,
         password: "temporary-password", // You might want to add a password field to the form
         options: {
@@ -72,12 +73,17 @@ export default function Welcome() {
         },
       });
 
-      if (error) throw error;
+      if (signUpError) throw signUpError;
 
-      // Create user preferences
+      if (!authData.user?.id) {
+        throw new Error("No user ID available");
+      }
+
+      // Create user preferences with the user ID
       const { error: preferencesError } = await supabase
         .from('user_preferences')
         .insert({
+          user_id: authData.user.id,
           preferred_sectors: selectedSectors,
           preferred_contract_types: selectedWorkTypes,
         });
