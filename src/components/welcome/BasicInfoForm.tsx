@@ -49,7 +49,7 @@ export const BasicInfoForm = ({ register, date, setDate }: BasicInfoFormProps) =
               {date ? format(date, "PPP") : "Pick a date"}
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
+          <PopoverContent className="w-auto p-0 bg-white" align="start">
             <Calendar
               mode="single"
               selected={date}
@@ -66,7 +66,7 @@ export const BasicInfoForm = ({ register, date, setDate }: BasicInfoFormProps) =
           <SelectTrigger className="bg-[#1A1F2C]">
             <SelectValue placeholder="Select gender" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-white">
             <SelectItem value="male">Male</SelectItem>
             <SelectItem value="female">Female</SelectItem>
             <SelectItem value="other">Other</SelectItem>
