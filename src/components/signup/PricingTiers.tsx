@@ -4,6 +4,7 @@ import { SilverTier } from "./tiers/SilverTier";
 import { GoldTier } from "./tiers/GoldTier";
 import { PlatinumTier } from "./tiers/PlatinumTier";
 import { handleSubscribe } from "./utils/subscriptionHandler";
+import { useNavigate } from "react-router-dom";
 
 interface PricingTiersProps {
   onPlanSelect: (plan: string) => void;
@@ -12,9 +13,10 @@ interface PricingTiersProps {
 export const PricingTiers = ({ onPlanSelect }: PricingTiersProps) => {
   const session = useSession();
   const supabase = useSupabaseClient();
+  const navigate = useNavigate();
 
   const handleSubscription = (priceId: string) => {
-    handleSubscribe(priceId, session, supabase);
+    handleSubscribe(priceId, session, supabase, navigate);
   };
 
   return (

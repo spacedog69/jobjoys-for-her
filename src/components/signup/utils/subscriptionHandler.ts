@@ -1,14 +1,20 @@
 import { toast } from "sonner";
 import { SupabaseClient } from "@supabase/supabase-js";
+import { Session } from "@supabase/supabase-js";
+import { NavigateFunction } from "react-router-dom";
 
 export const handleSubscribe = async (
   priceId: string,
-  session: any,
-  supabase: SupabaseClient
+  session: Session | null,
+  supabase: SupabaseClient,
+  navigate?: NavigateFunction
 ) => {
   try {
     if (!session) {
       toast.error("Please sign in first");
+      if (navigate) {
+        navigate("/login");
+      }
       return;
     }
 
