@@ -187,7 +187,10 @@ export default function Welcome() {
                           : [...prev, sector]
                       );
                     }}
-                    className="text-sm"
+                    className={cn(
+                      "text-sm",
+                      !selectedSectors.includes(sector) && "text-white hover:text-white bg-[#2A2F3C] hover:bg-[#3A3F4C]"
+                    )}
                   >
                     {sector}
                   </Button>
@@ -210,7 +213,10 @@ export default function Welcome() {
                           : [...prev, type]
                       );
                     }}
-                    className="text-sm"
+                    className={cn(
+                      "text-sm",
+                      !selectedWorkTypes.includes(type) && "text-white hover:text-white bg-[#2A2F3C] hover:bg-[#3A3F4C]"
+                    )}
                   >
                     {type}
                   </Button>
