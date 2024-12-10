@@ -13,7 +13,7 @@ import { WorkTypeSelection } from "@/components/welcome/WorkTypeSelection";
 type FormData = {
   email: string;
   fullName: string;
-  dateOfBirth: Date;
+  dateOfBirth: string;
   gender: string;
   sectors: string[];
   workTypes: string[];
@@ -21,7 +21,7 @@ type FormData = {
 
 export default function Welcome() {
   const navigate = useNavigate();
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState<string>();
   const [selectedSectors, setSelectedSectors] = useState<string[]>([]);
   const [selectedWorkTypes, setSelectedWorkTypes] = useState<string[]>([]);
 
@@ -52,7 +52,7 @@ export default function Welcome() {
         options: {
           data: {
             full_name: data.fullName,
-            date_of_birth: date?.toISOString(),
+            date_of_birth: date,
             gender: data.gender,
           },
         },
