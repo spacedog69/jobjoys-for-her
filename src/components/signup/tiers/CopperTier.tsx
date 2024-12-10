@@ -1,27 +1,35 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { DollarSign } from "lucide-react";
+import { Check } from "lucide-react";
 
 interface CopperTierProps {
   onSubscribe: (priceId: string) => void;
 }
 
-export const CopperTier = ({ onSubscribe }: CopperTierProps) => (
-  <Card className="bg-[#232836] border-none text-white hover:scale-105 transition-transform">
-    <CardHeader>
-      <CardTitle className="flex items-center justify-between">
-        <span>Copper</span>
-        <DollarSign className="w-6 h-6 text-[#B87333]" />
-      </CardTitle>
-    </CardHeader>
-    <CardContent>
+export function CopperTier({ onSubscribe }: CopperTierProps) {
+  return (
+    <div className="rounded-lg border p-8 bg-[#1A1F2C]">
+      <h3 className="text-2xl font-bold mb-4">Copper</h3>
       <p className="text-3xl font-bold mb-4">$6<span className="text-lg">/week</span></p>
       <Button 
         className="w-full bg-[#B87333] hover:bg-[#B87333]/80 text-white"
-        onClick={() => window.location.href = '/profile'}
+        onClick={() => window.location.href = '/welcome'}
       >
         Subscribe Now
       </Button>
-    </CardContent>
-  </Card>
-);
+      <ul className="mt-8 space-y-4">
+        <li className="flex items-center">
+          <Check className="h-5 w-5 text-[#B87333] mr-2" />
+          Access to all job listings
+        </li>
+        <li className="flex items-center">
+          <Check className="h-5 w-5 text-[#B87333] mr-2" />
+          Basic search filters
+        </li>
+        <li className="flex items-center">
+          <Check className="h-5 w-5 text-[#B87333] mr-2" />
+          Email notifications
+        </li>
+      </ul>
+    </div>
+  );
+}
