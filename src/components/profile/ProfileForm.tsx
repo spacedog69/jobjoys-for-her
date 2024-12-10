@@ -83,12 +83,13 @@ export function ProfileForm({ profile, type }: ProfileFormProps) {
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="website">Website</Label>
+        <Label htmlFor="website">LinkedIn Profile</Label>
         <Input
           id="website"
           name="website"
           value={formData.website}
           onChange={handleChange}
+          placeholder="https://linkedin.com/in/username"
           className="bg-[#1A1F2C]"
         />
       </div>
