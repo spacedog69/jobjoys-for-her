@@ -11,7 +11,6 @@ import { Reviews } from "@/components/Reviews";
 import { AuthenticatedView } from "@/components/AuthenticatedView";
 import { Features } from "@/components/Features";
 import { JobPreview } from "@/components/JobPreview";
-import { Footer } from "@/components/Footer";
 
 const Index = () => {
   const session = useSession();
@@ -61,7 +60,6 @@ const Index = () => {
             </Link>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
