@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -16,6 +16,13 @@ interface JobDialogProps {
 }
 
 export const JobDialog = ({ isOpen, onOpenChange, selectedJob, jobCount }: JobDialogProps) => {
+  const navigate = useNavigate();
+
+  const handleSignUp = () => {
+    navigate('/signup');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
@@ -40,11 +47,12 @@ export const JobDialog = ({ isOpen, onOpenChange, selectedJob, jobCount }: JobDi
                 <li>📈 Salary insights and negotiations tips</li>
               </ul>
             </div>
-            <Link to="/signup" className="block">
-              <Button className="w-full bg-primary hover:bg-primary/90">
-                Sign Up Now
-              </Button>
-            </Link>
+            <Button 
+              className="w-full bg-primary hover:bg-primary/90"
+              onClick={handleSignUp}
+            >
+              Sign Up Now
+            </Button>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>

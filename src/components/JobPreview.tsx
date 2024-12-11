@@ -1,5 +1,5 @@
 import { Star, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useSession } from "@supabase/auth-helpers-react";
 import { useState } from "react";
@@ -8,6 +8,7 @@ import { JobDialog } from "./jobs/JobDialog";
 
 export const JobPreview = () => {
   const session = useSession();
+  const navigate = useNavigate();
   const [selectedJob, setSelectedJob] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -73,9 +74,13 @@ export const JobPreview = () => {
       setSelectedJob(job.title);
       setIsDialogOpen(true);
     } else {
-      // If authenticated, navigate to job details
       window.location.href = `/job/${job.title.toLowerCase().replace(/ /g, '-')}`;
     }
+  };
+
+  const handleViewAllJobs = () => {
+    navigate('/signup');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -107,15 +112,14 @@ export const JobPreview = () => {
         </div>
 
         <div className="text-center">
-          <Link to="/signup">
-            <Button
-              size="lg"
-              className="bg-primary text-white hover:bg-primary/90"
-            >
-              View All Jobs
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
+          <Button
+            size="lg"
+            className="bg-primary text-white hover:bg-primary/90"
+            onClick={handleViewAllJobs}
+          >
+            View All Jobs
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
         </div>
       </div>
 

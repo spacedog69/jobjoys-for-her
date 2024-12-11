@@ -14,6 +14,12 @@ import { JobPreview } from "@/components/JobPreview";
 
 const Index = () => {
   const session = useSession();
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate('/signup');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // If not authenticated, show landing page
   if (!session) {
@@ -49,15 +55,14 @@ const Index = () => {
             <p className="text-xl mb-8 max-w-2xl mx-auto">
               Join thousands of women who have found their perfect remote job through our platform
             </p>
-            <Link to="/signup">
-              <Button
-                size="lg"
-                className="bg-white text-accent hover:bg-white/90"
-              >
-                Get Started Now
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+            <Button
+              size="lg"
+              className="bg-white text-accent hover:bg-white/90"
+              onClick={handleGetStarted}
+            >
+              Get Started Now
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
           </div>
         </div>
       </div>
