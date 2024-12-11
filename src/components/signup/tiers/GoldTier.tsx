@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { DollarSign } from "lucide-react";
+import { DollarSign, Check } from "lucide-react";
 
 interface GoldTierProps {
   onSubscribe: (priceId: string) => void;
@@ -22,6 +22,20 @@ export const GoldTier = ({ onSubscribe }: GoldTierProps) => (
       >
         Subscribe Now
       </Button>
+      <ul className="mt-8 space-y-4">
+        <li className="flex items-center">
+          <Check className="h-5 w-5 text-[#FFD700] mr-2" />
+          Access to all job listings
+        </li>
+        <li className="flex items-center">
+          <Check className="h-5 w-5 text-[#FFD700] mr-2" />
+          Basic search filters
+        </li>
+        <li className="flex items-center">
+          <Check className="h-5 w-5 text-[#FFD700] mr-2" />
+          Email notifications
+        </li>
+      </ul>
     </CardContent>
   </Card>
 );
