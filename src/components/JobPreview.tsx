@@ -2,17 +2,9 @@ import { Star, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useSession } from "@supabase/auth-helpers-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
 import { useState } from "react";
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { supabase } from "@/integrations/supabase/client";
+import { JobCard } from "./jobs/JobCard";
+import { JobDialog } from "./jobs/JobDialog";
 
 export const JobPreview = () => {
   const session = useSession();
@@ -103,32 +95,14 @@ export const JobPreview = () => {
           </p>
         </div>
 
-        {/* Job Listings Preview */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {jobs.map((job, i) => (
-            <div
+            <JobCard
               key={i}
-              onClick={() => handleJobClick(job)}
-              className="bg-white p-6 rounded-lg shadow-sm border animate-fade-in opacity-0 hover:shadow-md transition-shadow cursor-pointer"
-              style={{ animationDelay: `${i * 0.1}s`, animationFillMode: "forwards" }}
-            >
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h3 className="font-semibold text-lg mb-1">{job.title}</h3>
-                  <p className="text-primary">{job.company}</p>
-                </div>
-                <span className="bg-secondary px-3 py-1 rounded-full text-sm">
-                  {job.type}
-                </span>
-              </div>
-              <p className="text-gray-600 mb-4">
-                {job.description}
-              </p>
-              <div className="flex justify-between items-center text-sm text-gray-500">
-                <span>{job.salary}</span>
-                <span>Posted {job.posted}</span>
-              </div>
-            </div>
+              job={job}
+              index={i}
+              onJobClick={handleJobClick}
+            />
           ))}
         </div>
 
@@ -145,59 +119,12 @@ export const JobPreview = () => {
         </div>
       </div>
 
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-center mb-2">
-              🎯 We Found Your Perfect Match!
-            </DialogTitle>
-            <DialogDescription className="text-center space-y-4">
-              <p className="text-lg">
-                <span className="font-semibold text-primary">
-                  {selectedJob && `${jobs.find(j => j.title === selectedJob)?.count}+`} jobs
-                </span> match your search for{" "}
-                <span className="font-semibold">{selectedJob}</span>
-              </p>
-              <div className="p-6 rounded-lg space-y-4">
-                <h3 className="font-semibold text-lg text-foreground">
-                  Get Instant Access to:
-                </h3>
-                <ul className="space-y-2 text-left">
-                  <li>✨ Exclusive remote job listings</li>
-                  <li>🚀 Early access to new opportunities</li>
-                  <li>📈 Salary insights and negotiations tips</li>
-                </ul>
-              </div>
-              <div className="bg-[#2A303F] p-6 rounded-lg">
-                <Auth
-                  supabaseClient={supabase}
-                  appearance={{
-                    theme: ThemeSupa,
-                    variables: {
-                      default: {
-                        colors: {
-                          brand: "#9b87f5",
-                          brandAccent: "#8B5CF6",
-                          defaultButtonBackground: "#9b87f5",
-                          defaultButtonBackgroundHover: "#8B5CF6",
-                        },
-                      },
-                    },
-                    className: {
-                      container: "max-w-none",
-                      button: "w-full",
-                      label: "text-white",
-                    },
-                  }}
-                  view="sign_up"
-                  providers={[]}
-                  theme="dark"
-                />
-              </div>
-            </DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+      <JobDialog
+        isOpen={isDialogOpen}
+        onOpenChange={setIsDialogOpen}
+        selectedJob={selectedJob}
+        jobCount={selectedJob ? jobs.find(j => j.title === selectedJob)?.count || 0 : 0}
+      />
     </div>
   );
 };
