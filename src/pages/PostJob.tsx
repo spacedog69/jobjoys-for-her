@@ -5,20 +5,24 @@ import { Helmet } from "react-helmet";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { useSearchParams } from "react-router-dom";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const PostJob = () => {
   const [searchParams] = useSearchParams();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (searchParams.get("success") === "true") {
       toast.success(
-        "Thank you for posting your job! 🎉 We've received your submission and it will be live soon! ✨",
+        isMobile
+          ? "Thank you! 🎉\nYour job post will be live soon! ✨"
+          : "Thank you for posting your job! 🎉 We've received your submission and it will be live soon! ✨",
         {
           duration: 6000,
         }
       );
     }
-  }, [searchParams]);
+  }, [searchParams, isMobile]);
 
   return (
     <>
