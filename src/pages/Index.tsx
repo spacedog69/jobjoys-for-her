@@ -1,72 +1,71 @@
+import { useSession } from "@supabase/auth-helpers-react";
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { Navbar } from "@/components/Navbar";
-import { Features } from "@/components/Features";
-import { Reviews } from "@/components/Reviews";
 import { SearchBar } from "@/components/SearchBar";
+import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
+import { Users, Award, Star, ArrowRight, Briefcase } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Reviews } from "@/components/Reviews";
+import { AuthenticatedView } from "@/components/AuthenticatedView";
+import { Features } from "@/components/Features";
 import { JobPreview } from "@/components/JobPreview";
-import { Helmet } from "react-helmet";
 
 const Index = () => {
-  return (
-    <>
-      <Helmet>
-        <title>JobJoys | Remote Jobs for Women in Tech</title>
-        <meta 
-          name="description" 
-          content="Find the best remote job opportunities for women in tech. Join our community of 300,000+ professional women and discover your next career move." 
-        />
-        <meta 
-          name="keywords" 
-          content="women in tech, remote jobs, tech careers, female professionals, remote work, job board" 
-        />
-        <meta property="og:title" content="JobJoys | Remote Jobs for Women in Tech" />
-        <meta 
-          property="og:description" 
-          content="Find the best remote job opportunities for women in tech. Join our community of 300,000+ professional women and discover your next career move." 
-        />
-        <link rel="canonical" href="https://jobjoys.com" />
-      </Helmet>
+  const session = useSession();
 
-      <main className="min-h-screen">
+  // If not authenticated, show landing page
+  if (!session) {
+    return (
+      <div className="min-h-screen bg-white">
         <Navbar />
-        <div className="relative">
-          {/* Hero Section with Search */}
-          <div 
-            className="min-h-[600px] flex flex-col items-center justify-center px-4 bg-gradient-to-b from-primary/30 via-primary/10 to-transparent"
-            style={{
-              backgroundImage: `url(https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=2000&q=80)`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundBlendMode: 'overlay'
-            }}
-          >
-            <div className="absolute inset-0 bg-black/40" />
-            <div className="relative z-10 text-center mb-8">
-              <h1 className="text-5xl font-bold mb-4 text-white">
-                Find Your Dream Remote Job 🚀
+        
+        {/* Hero Section */}
+        <div className="bg-gradient-to-b from-primary via-primary/70 to-primary/20 pt-40 pb-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h1 className="text-5xl font-bold mb-6 text-white">
+                Find Your Dream Remote Job 👩‍💻
               </h1>
               <p className="text-xl text-white/90 mb-8">
-                Join 300,000+ women discovering amazing remote opportunities
+                Search 65,000+ work from home jobs and get more interviews
               </p>
               <SearchBar />
             </div>
           </div>
-
-          {/* Job Listings Preview */}
-          <JobPreview />
-
-          {/* Features Section */}
-          <section className="py-16">
-            <Features />
-          </section>
-
-          {/* Reviews Section */}
-          <section className="py-16 bg-gray-50">
-            <Reviews />
-          </section>
         </div>
-      </main>
-    </>
-  );
+
+        <Features />
+        <JobPreview />
+        <Reviews />
+
+        {/* CTA Section */}
+        <div className="bg-gradient-to-r from-primary to-accent py-16 text-white">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold mb-6">
+              Ready to Start Your Remote Journey? 🚀
+            </h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto">
+              Join thousands of women who have found their perfect remote job through our platform
+            </p>
+            <Link to="/signup">
+              <Button
+                size="lg"
+                className="bg-white text-accent hover:bg-white/90"
+              >
+                Get Started Now
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Authenticated view
+  return <AuthenticatedView />;
 };
 
 export default Index;

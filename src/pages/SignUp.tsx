@@ -1,60 +1,45 @@
-import { AuthSection } from "@/components/signup/AuthSection";
-import { Features } from "@/components/signup/Features";
+import { Card } from "@/components/ui/card";
+import { Navbar } from "@/components/Navbar";
+import { Reviews } from "@/components/Reviews";
+import { useSubscriptionStatus } from "@/components/subscription/SubscriptionCheck";
+import { useState, useEffect } from "react";
 import { PricingTiers } from "@/components/signup/PricingTiers";
-import { Helmet } from "react-helmet";
+import { AuthSection } from "@/components/signup/AuthSection";
+import { handleStripeSuccess } from "@/components/signup/utils/subscriptionHandler";
+import { useSearchParams } from "react-router-dom";
 
-const SignUp = () => {
-  const handlePlanSelect = (plan: string) => {
-    // Handle plan selection
-    console.log("Selected plan:", plan);
-  };
+export default function SignUp() {
+  const { isSubscribed, isLoading } = useSubscriptionStatus();
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [searchParams] = useSearchParams();
+  
+  useEffect(() => {
+    const sessionId = searchParams.get('session_id');
+    if (sessionId) {
+      handleStripeSuccess(sessionId);
+    }
+  }, [searchParams]);
 
   return (
-    <>
-      <Helmet>
-        <title>Join JobJoys | Create Your Account</title>
-        <meta 
-          name="description" 
-          content="Sign up for JobJoys to access exclusive remote job opportunities, connect with top employers, and advance your career in tech." 
-        />
-        <meta 
-          name="keywords" 
-          content="sign up, create account, remote jobs, women in tech, career opportunities" 
-        />
-        <meta property="og:title" content="Join JobJoys | Create Your Account" />
-        <meta 
-          property="og:description" 
-          content="Sign up for JobJoys to access exclusive remote job opportunities, connect with top employers, and advance your career in tech." 
-        />
-        <link rel="canonical" href="https://jobjoys.com/signup" />
-      </Helmet>
-
-      <main className="min-h-screen bg-gradient-to-b from-primary/5 to-primary/10">
-        <div className="container mx-auto px-4 py-16">
-          <article className="max-w-4xl mx-auto">
-            <header className="text-center mb-12">
-              <h1 className="text-4xl font-bold">Join Our Community 🌟</h1>
-              <p className="text-xl text-gray-600 mt-4">
-                Connect with amazing opportunities tailored for women in tech
-              </p>
-            </header>
-            
-            <section className="mb-16">
-              <Features />
-            </section>
-            
-            <section className="mb-16">
-              <PricingTiers onPlanSelect={handlePlanSelect} />
-            </section>
-            
-            <section>
-              <AuthSection />
-            </section>
-          </article>
+    <div className="min-h-screen bg-[#1A1F2C] text-white">
+      <Navbar />
+      
+      <div className="max-w-4xl mx-auto pt-24 px-4">
+        <div className="rounded-lg p-6 mb-12">
+          <h1 className="text-4xl md:text-6xl font-bold mb-2 text-[#E5DEFF]">
+            Discover 65,000+
+          </h1>
+          <h2 className="text-4xl md:text-6xl font-bold text-primary">
+            Remote Jobs for Women
+          </h2>
         </div>
-      </main>
-    </>
-  );
-};
 
-export default SignUp;
+        <PricingTiers onPlanSelect={setSelectedPlan} />
+
+        {(isSubscribed || selectedPlan) && <AuthSection />}
+
+        <Reviews />
+      </div>
+    </div>
+  );
+}
