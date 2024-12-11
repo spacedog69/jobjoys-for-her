@@ -7,7 +7,7 @@ interface SilverTierProps {
 }
 
 export const SilverTier = ({ onSubscribe }: SilverTierProps) => (
-  <Card className="bg-[#232836] border-none text-white hover:scale-105 transition-transform">
+  <Card className="bg-[#232836] border border-white text-white hover:scale-105 transition-transform">
     <CardHeader>
       <CardTitle className="flex items-center justify-between">
         <span>Silver</span>

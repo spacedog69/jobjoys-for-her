@@ -7,7 +7,7 @@ interface CopperTierProps {
 
 export function CopperTier({ onSubscribe }: CopperTierProps) {
   return (
-    <div className="rounded-lg border p-8 bg-[#1A1F2C]">
+    <div className="rounded-lg border border-white p-8 bg-[#1A1F2C] hover:scale-105 transition-transform">
       <h3 className="text-2xl font-bold mb-4">Copper</h3>
       <p className="text-3xl font-bold mb-4">$6<span className="text-lg">/week</span></p>
       <Button 
