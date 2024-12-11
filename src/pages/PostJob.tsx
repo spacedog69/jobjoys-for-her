@@ -2,8 +2,24 @@ import { Navbar } from "@/components/Navbar";
 import { JobPostForm } from "@/components/job-post/JobPostForm";
 import { PricingOptions } from "@/components/job-post/PricingOptions";
 import { Helmet } from "react-helmet";
+import { useEffect } from "react";
+import { toast } from "sonner";
+import { useSearchParams } from "react-router-dom";
 
 const PostJob = () => {
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams.get("success") === "true") {
+      toast.success(
+        "Thank you for posting your job! 🎉 We've received your submission and it will be live soon! ✨",
+        {
+          duration: 6000,
+        }
+      );
+    }
+  }, [searchParams]);
+
   return (
     <>
       <Helmet>
