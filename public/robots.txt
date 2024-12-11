@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://jobjoys.lovable.dev/sitemap.xml
+
+# Disallow admin and private routes
+Disallow: /admin/
+Disallow: /profile/
+Disallow: /settings/
+
+# Crawl-delay
+Crawl-delay: 10
