@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /profile
+Disallow: /welcome
+
+Sitemap: https://jobjoys.com/sitemap.xml
