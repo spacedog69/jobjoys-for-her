@@ -4,6 +4,11 @@ import { PricingTiers } from "@/components/signup/PricingTiers";
 import { Helmet } from "react-helmet";
 
 const SignUp = () => {
+  const handlePlanSelect = (plan: string) => {
+    // Handle plan selection
+    console.log("Selected plan:", plan);
+  };
+
   return (
     <>
       <Helmet>
@@ -39,7 +44,7 @@ const SignUp = () => {
             </section>
             
             <section className="mb-16">
-              <PricingTiers />
+              <PricingTiers onPlanSelect={handlePlanSelect} />
             </section>
             
             <section>
