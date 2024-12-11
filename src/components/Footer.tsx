@@ -6,7 +6,7 @@ export const Footer = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="font-semibold text-lg mb-4">JobJoys</h3>
+            <h3 className="font-semibold text-lg mb-4">Home Jobs for Women</h3>
             <p className="text-gray-300">
               Connecting women with their dream remote jobs.
             </p>
@@ -52,13 +52,13 @@ export const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Contact</h4>
             <p className="text-gray-300">
-              Email: support@jobjoys.com
+              Email: support@homejobsforwomen.com
             </p>
           </div>
         </div>
         
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-300">
-          <p>&copy; {new Date().getFullYear()} JobJoys. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Home Jobs for Women. All rights reserved.</p>
         </div>
       </div>
     </footer>
