@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 export const PricingOptions = () => {
   const [pricing, setPricing] = useState({
@@ -15,6 +17,24 @@ export const PricingOptions = () => {
     if (pricing.isAnalytics) total += 49;
     if (pricing.isSticky) total += 299;
     return total;
+  };
+
+  const handlePayment = async () => {
+    try {
+      const { data, error } = await supabase.functions.invoke('create-job-checkout', {
+        body: { selectedOptions: pricing }
+      });
+
+      if (error) throw error;
+      if (data?.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL received');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error('Failed to initiate checkout. Please try again.');
+    }
   };
 
   return (
@@ -83,7 +103,7 @@ export const PricingOptions = () => {
 
       <div className="flex justify-end mt-6">
         <Button
-          type="submit"
+          onClick={handlePayment}
           className="bg-accent hover:bg-accent/90 text-white px-8 py-4 text-lg"
         >
           Pay Now (${calculatePrice()}.00) 💳
