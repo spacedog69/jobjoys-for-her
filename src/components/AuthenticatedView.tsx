@@ -56,6 +56,9 @@ export const AuthenticatedView = () => {
       let query = supabase
         .from('Jobs_Directory')
         .select('*')
+        .not('position', 'is', null)
+        .not('Company', 'is', null)
+        .not('location', 'is', null)
         .order('created_at', { ascending: false });
 
       if (searchTitle) {
