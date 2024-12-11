@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSession } from "@supabase/auth-helpers-react";
-import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -23,22 +23,6 @@ export function ProfileForm({ profile, type }: ProfileFormProps) {
     billing_address: profile?.billing_address || '',
     phone_number: profile?.phone_number || '',
     company_name: profile?.company_name || '',
-  });
-
-  const { data: subscriptionData } = useQuery({
-    queryKey: ['subscription-details'],
-    queryFn: async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) return null;
-
-      const response = await fetch('/api/get-subscription-details', {
-        headers: {
-          Authorization: `Bearer ${session.access_token}`,
-        },
-      });
-      if (!response.ok) throw new Error('Failed to fetch subscription details');
-      return response.json();
-    },
   });
 
   const updateProfile = useMutation({
@@ -75,7 +59,7 @@ export function ProfileForm({ profile, type }: ProfileFormProps) {
   return (
     <form onSubmit={handleSubmit} className="p-6">
       {type === 'personal' && <PersonalInfoForm formData={formData} handleChange={handleChange} />}
-      {type === 'billing' && <BillingInfoForm formData={formData} handleChange={handleChange} subscriptionData={subscriptionData} />}
+      {type === 'billing' && <BillingInfoForm formData={formData} handleChange={handleChange} />}
       {type === 'preferences' && <PreferencesForm />}
       
       <Button 

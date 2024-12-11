@@ -4,6 +4,8 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { handleSubscribe } from "@/components/signup/utils/subscriptionHandler";
 import { format } from "date-fns";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 interface BillingInfoFormProps {
   formData: {
@@ -12,10 +14,30 @@ interface BillingInfoFormProps {
     company_name: string;
   };
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  subscriptionData: any;
 }
 
-export function BillingInfoForm({ formData, handleChange, subscriptionData }: BillingInfoFormProps) {
+export function BillingInfoForm({ formData, handleChange }: BillingInfoFormProps) {
+  const { data: subscriptionData, isError } = useQuery({
+    queryKey: ['subscription-details'],
+    queryFn: async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return null;
+
+      const response = await fetch('/api/get-subscription-details', {
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch subscription details');
+      }
+      
+      return response.json();
+    },
+    retry: false,
+  });
+
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-2 mb-6">
@@ -23,7 +45,9 @@ export function BillingInfoForm({ formData, handleChange, subscriptionData }: Bi
         <h2 className="text-xl font-semibold">Billing Information</h2>
       </div>
       
-      {subscriptionData?.subscription ? (
+      {isError ? (
+        <p className="text-muted-foreground mb-6">Unable to load subscription details.</p>
+      ) : subscriptionData?.subscription ? (
         <div className="bg-[#1A1F2C] p-4 rounded-lg mb-6">
           <h3 className="text-lg font-medium mb-2">Current Subscription</h3>
           <p className="text-muted-foreground">Plan: {subscriptionData.subscription.name}</p>

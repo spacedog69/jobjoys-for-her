@@ -37,13 +37,18 @@ export const AuthSection = () => {
             view="sign_up"
             providers={[]}
             theme="dark"
-            onError={(error) => {
-              if (error.message.includes("User already registered")) {
-                toast.error("This email is already registered. Please log in instead.");
-                navigate("/login");
-              } else {
-                toast.error("An error occurred during signup. Please try again.");
-              }
+            localization={{
+              variables: {
+                sign_up: {
+                  email_label: "Email",
+                  password_label: "Password",
+                  button_label: "Sign up",
+                  loading_button_label: "Signing up...",
+                  social_provider_text: "Sign in with {{provider}}",
+                  link_text: "Don't have an account? Sign up",
+                  confirmation_text: "Check your email for the confirmation link",
+                },
+              },
             }}
           />
         </div>
