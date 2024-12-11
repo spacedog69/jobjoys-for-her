@@ -148,39 +148,54 @@ export const JobPreview = () => {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-xl font-semibold mb-2">
-              {selectedJob && `${jobs.find(j => j.title === selectedJob)?.count}+ ${selectedJob} Roles Available`}
+            <DialogTitle className="text-2xl font-bold text-center mb-2">
+              🎯 We Found Your Perfect Match!
             </DialogTitle>
-            <DialogDescription className="text-base mb-4">
-              Sign up now to access all remote job opportunities for women in tech
+            <DialogDescription className="text-center space-y-4">
+              <p className="text-lg">
+                <span className="font-semibold text-primary">
+                  {selectedJob && `${jobs.find(j => j.title === selectedJob)?.count}+`} jobs
+                </span> match your search for{" "}
+                <span className="font-semibold">{selectedJob}</span>
+              </p>
+              <div className="p-6 rounded-lg space-y-4">
+                <h3 className="font-semibold text-lg text-foreground">
+                  Get Instant Access to:
+                </h3>
+                <ul className="space-y-2 text-left">
+                  <li>✨ Exclusive remote job listings</li>
+                  <li>🚀 Early access to new opportunities</li>
+                  <li>📈 Salary insights and negotiations tips</li>
+                </ul>
+              </div>
+              <div className="bg-[#2A303F] p-6 rounded-lg">
+                <Auth
+                  supabaseClient={supabase}
+                  appearance={{
+                    theme: ThemeSupa,
+                    variables: {
+                      default: {
+                        colors: {
+                          brand: "#9b87f5",
+                          brandAccent: "#8B5CF6",
+                          defaultButtonBackground: "#9b87f5",
+                          defaultButtonBackgroundHover: "#8B5CF6",
+                        },
+                      },
+                    },
+                    className: {
+                      container: "max-w-none",
+                      button: "w-full",
+                      label: "text-white",
+                    },
+                  }}
+                  view="sign_up"
+                  providers={[]}
+                  theme="dark"
+                />
+              </div>
             </DialogDescription>
           </DialogHeader>
-          <div className="bg-[#2A303F] p-6 rounded-lg">
-            <Auth
-              supabaseClient={supabase}
-              appearance={{
-                theme: ThemeSupa,
-                variables: {
-                  default: {
-                    colors: {
-                      brand: "#9b87f5",
-                      brandAccent: "#8B5CF6",
-                      defaultButtonBackground: "#9b87f5",
-                      defaultButtonBackgroundHover: "#8B5CF6",
-                    },
-                  },
-                },
-                className: {
-                  container: "max-w-none",
-                  button: "w-full",
-                  label: "text-white",
-                },
-              }}
-              view="sign_up"
-              providers={[]}
-              theme="dark"
-            />
-          </div>
         </DialogContent>
       </Dialog>
     </div>
