@@ -74,7 +74,7 @@ export const JobPreview = () => {
       setSelectedJob(job.title);
       setIsDialogOpen(true);
     } else {
-      window.location.href = `/job/${job.title.toLowerCase().replace(/ /g, '-')}`;
+      navigate(`/job/${job.title.toLowerCase().replace(/ /g, '-')}`);
     }
   };
 
