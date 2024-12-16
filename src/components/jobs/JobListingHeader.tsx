@@ -9,6 +9,8 @@ interface JobListingHeaderProps {
   setLocationFilter: (value: string) => void;
   sectorFilter: string;
   setSectorFilter: (value: string) => void;
+  salaryRange: number[];
+  setSalaryRange: (value: number[]) => void;
   filters: {
     contractTypes: string[];
     locations: string[];
@@ -26,6 +28,8 @@ export const JobListingHeader = ({
   setLocationFilter,
   sectorFilter,
   setSectorFilter,
+  salaryRange,
+  setSalaryRange,
   filters,
   isFiltersLoading,
 }: JobListingHeaderProps) => {
@@ -46,6 +50,8 @@ export const JobListingHeader = ({
         setLocationFilter={setLocationFilter}
         sectorFilter={sectorFilter}
         setSectorFilter={setSectorFilter}
+        salaryRange={salaryRange}
+        setSalaryRange={setSalaryRange}
         filters={filters}
         isLoading={isFiltersLoading}
       />

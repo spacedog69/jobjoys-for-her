@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Building2, MapPin, Briefcase, Clock } from "lucide-react";
+import { Building2, MapPin, Briefcase, DollarSign } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -11,12 +11,13 @@ import {
 import { Button } from "@/components/ui/button";
 
 interface Job {
-  id: number; // Changed from string to number to match the database type
+  id: number;
   position: string;
   Company: string;
   location: string;
   contractType: string;
-  publishedAt: string;
+  salary_min: number | null;
+  salary_max: number | null;
 }
 
 interface JobTableProps {
@@ -24,6 +25,13 @@ interface JobTableProps {
 }
 
 export const JobTable = ({ jobs }: JobTableProps) => {
+  const formatSalary = (min: number | null, max: number | null) => {
+    if (!min && !max) return "Not specified";
+    if (min && !max) return `$${(min / 1000).toFixed(0)}k+`;
+    if (!min && max) return `Up to $${(max / 1000).toFixed(0)}k`;
+    return `$${(min! / 1000).toFixed(0)}k - $${(max! / 1000).toFixed(0)}k`;
+  };
+
   return (
     <div className="overflow-hidden">
       <Table>
@@ -33,7 +41,7 @@ export const JobTable = ({ jobs }: JobTableProps) => {
             <TableHead className="min-w-[150px]">Company</TableHead>
             <TableHead className="min-w-[120px]">Location</TableHead>
             <TableHead className="min-w-[100px]">Type</TableHead>
-            <TableHead className="min-w-[100px]">Posted</TableHead>
+            <TableHead className="min-w-[120px]">Salary</TableHead>
             <TableHead className="w-[100px]"></TableHead>
           </TableRow>
         </TableHeader>
@@ -61,8 +69,8 @@ export const JobTable = ({ jobs }: JobTableProps) => {
               </TableCell>
               <TableCell>
                 <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-gray-500 hidden sm:block" />
-                  {new Date(job.publishedAt || "").toLocaleDateString()}
+                  <DollarSign className="h-4 w-4 text-gray-500 hidden sm:block" />
+                  {formatSalary(job.salary_min, job.salary_max)}
                 </div>
               </TableCell>
               <TableCell>

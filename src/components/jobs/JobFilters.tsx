@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 import { useSession } from "@supabase/auth-helpers-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { Slider } from "@/components/ui/slider";
 
 interface JobFiltersProps {
   contractFilter: string;
@@ -12,6 +13,8 @@ interface JobFiltersProps {
   setLocationFilter: (value: string) => void;
   sectorFilter: string;
   setSectorFilter: (value: string) => void;
+  salaryRange: number[];
+  setSalaryRange: (value: number[]) => void;
   filters: {
     contractTypes: string[];
     locations: string[];
@@ -27,6 +30,8 @@ export const JobFilters = ({
   setLocationFilter,
   sectorFilter,
   setSectorFilter,
+  salaryRange,
+  setSalaryRange,
   filters,
   isLoading = false,
 }: JobFiltersProps) => {
@@ -36,6 +41,7 @@ export const JobFilters = ({
     setContractFilter("all");
     setLocationFilter("all");
     setSectorFilter("all");
+    setSalaryRange([0, 200000]);
   };
 
   const handleSaveFilters = async () => {
@@ -67,7 +73,13 @@ export const JobFilters = ({
   const hasActiveFilters = 
     contractFilter !== "all" || 
     locationFilter !== "all" || 
-    sectorFilter !== "all";
+    sectorFilter !== "all" ||
+    salaryRange[0] > 0 ||
+    salaryRange[1] < 200000;
+
+  const formatSalary = (value: number) => {
+    return `$${(value / 1000).toFixed(0)}k`;
+  };
 
   return (
     <div className="space-y-4">
@@ -101,6 +113,22 @@ export const JobFilters = ({
           label="Sectors"
           tooltip="Filter jobs by industry sector"
         />
+
+        <div className="w-full sm:w-[200px] space-y-2">
+          <label className="text-sm text-gray-500">Salary Range</label>
+          <Slider
+            value={salaryRange}
+            onValueChange={setSalaryRange}
+            min={0}
+            max={200000}
+            step={5000}
+            className="w-full"
+          />
+          <div className="flex justify-between text-xs text-gray-500">
+            <span>{formatSalary(salaryRange[0])}</span>
+            <span>{formatSalary(salaryRange[1])}</span>
+          </div>
+        </div>
 
         {hasActiveFilters && (
           <div className="flex flex-wrap gap-2 mt-2 sm:mt-0">
@@ -153,6 +181,15 @@ export const JobFilters = ({
               <X
                 className="h-4 w-4 cursor-pointer hover:text-primary/70"
                 onClick={() => setSectorFilter("all")}
+              />
+            </div>
+          )}
+          {(salaryRange[0] > 0 || salaryRange[1] < 200000) && (
+            <div className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm flex items-center gap-2">
+              {formatSalary(salaryRange[0])} - {formatSalary(salaryRange[1])}
+              <X
+                className="h-4 w-4 cursor-pointer hover:text-primary/70"
+                onClick={() => setSalaryRange([0, 200000])}
               />
             </div>
           )}

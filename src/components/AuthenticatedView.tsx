@@ -16,6 +16,7 @@ export const AuthenticatedView = () => {
   const [contractFilter, setContractFilter] = useState<string>("all");
   const [locationFilter, setLocationFilter] = useState<string>("all");
   const [sectorFilter, setSectorFilter] = useState<string>("all");
+  const [salaryRange, setSalaryRange] = useState<number[]>([0, 200000]);
   const itemsPerPage = 30;
 
   const searchTitle = searchParams.get("title");
@@ -51,7 +52,7 @@ export const AuthenticatedView = () => {
   }, [userPreferences]);
 
   const { data: jobs, isLoading: isJobsLoading } = useQuery({
-    queryKey: ['jobs', contractFilter, locationFilter, sectorFilter, searchTitle, searchLocation],
+    queryKey: ['jobs', contractFilter, locationFilter, sectorFilter, salaryRange, searchTitle, searchLocation],
     queryFn: async () => {
       let query = supabase
         .from('Jobs_Directory')
@@ -77,6 +78,14 @@ export const AuthenticatedView = () => {
       }
       if (sectorFilter && sectorFilter !== "all") {
         query = query.eq('sector', sectorFilter);
+      }
+      
+      // Add salary range filter
+      if (salaryRange[0] > 0) {
+        query = query.gte('salary_max', salaryRange[0]);
+      }
+      if (salaryRange[1] < 200000) {
+        query = query.lte('salary_min', salaryRange[1]);
       }
 
       const { data, error } = await query;
@@ -131,6 +140,8 @@ export const AuthenticatedView = () => {
             setLocationFilter={setLocationFilter}
             sectorFilter={sectorFilter}
             setSectorFilter={setSectorFilter}
+            salaryRange={salaryRange}
+            setSalaryRange={setSalaryRange}
             filters={filters}
             isFiltersLoading={isFiltersLoading}
           />

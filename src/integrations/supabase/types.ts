@@ -40,6 +40,8 @@ export type Database = {
           position: string | null
           publishedAt: string | null
           salary: string | null
+          salary_max: number | null
+          salary_min: number | null
           sector: string | null
           text: string | null
         }
@@ -55,6 +57,8 @@ export type Database = {
           position?: string | null
           publishedAt?: string | null
           salary?: string | null
+          salary_max?: number | null
+          salary_min?: number | null
           sector?: string | null
           text?: string | null
         }
@@ -70,6 +74,8 @@ export type Database = {
           position?: string | null
           publishedAt?: string | null
           salary?: string | null
+          salary_max?: number | null
+          salary_min?: number | null
           sector?: string | null
           text?: string | null
         }
