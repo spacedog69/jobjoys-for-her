@@ -17,19 +17,20 @@ export const JobCrawler = () => {
 
     setIsLoading(true);
     try {
-      const firecrawl = new FirecrawlApp();
+      // Initialize FirecrawlApp with empty config (no API key needed for local usage)
+      const firecrawl = new FirecrawlApp({});
+      
       const response = await firecrawl.crawlUrl(url, {
         limit: 100,
-        scrapeOptions: {
-          selectors: {
-            title: 'h1.job-title',
-            company: '.company-name',
-            location: '.job-location',
-            description: '.job-description',
-            type: '.job-type',
-            salary: '.job-salary',
-          },
-        },
+        formats: ['html'],
+        selectors: [
+          { name: 'title', selector: 'h1.job-title' },
+          { name: 'company', selector: '.company-name' },
+          { name: 'location', selector: '.job-location' },
+          { name: 'description', selector: '.job-description' },
+          { name: 'type', selector: '.job-type' },
+          { name: 'salary', selector: '.job-salary' },
+        ]
       });
 
       if (response.success) {
