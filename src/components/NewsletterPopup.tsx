@@ -23,15 +23,27 @@ export const NewsletterPopup = () => {
     setIsLoading(true);
 
     try {
-      const { error } = await supabase
+      // First, save to database
+      const { error: dbError } = await supabase
         .from("newsletter_subscriptions")
         .insert([{ email }]);
 
-      if (error) throw error;
+      if (dbError) throw dbError;
 
-      toast.success("Thank you for subscribing!");
+      // Then, send welcome email
+      const { error: emailError } = await supabase.functions.invoke('send-welcome-email', {
+        body: { to: email }
+      });
+
+      if (emailError) {
+        console.error("Error sending welcome email:", emailError);
+        // Still show success since the subscription was saved
+      }
+
+      toast.success("Thank you for subscribing! Check your email for a welcome message 📧");
       setIsVisible(false);
     } catch (error) {
+      console.error("Error:", error);
       toast.error("Failed to subscribe. Please try again.");
     } finally {
       setIsLoading(false);
