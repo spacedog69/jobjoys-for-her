@@ -8,6 +8,7 @@ import { JobListingHeader } from "@/components/jobs/JobListingHeader";
 import { JobPagination } from "@/components/jobs/JobPagination";
 import { useSession } from "@supabase/auth-helpers-react";
 import { useSearchParams } from "react-router-dom";
+import { JobCrawler } from "@/components/admin/JobCrawler";
 
 export const AuthenticatedView = () => {
   const session = useSession();
@@ -112,6 +113,22 @@ export const AuthenticatedView = () => {
   const totalPages = jobs ? Math.ceil(jobs.length / itemsPerPage) : 0;
   const totalJobs = jobs?.length || 0;
 
+  const { data: isAdmin } = useQuery({
+    queryKey: ['is-admin'],
+    queryFn: async () => {
+      if (!session?.user) return false;
+      const { data, error } = await supabase
+        .from('admin_users')
+        .select('is_admin')
+        .eq('user_id', session.user.id)
+        .single();
+      
+      if (error) return false;
+      return data?.is_admin || false;
+    },
+    enabled: !!session?.user,
+  });
+
   return (
     <div className="min-h-screen bg-[#1A1F2C]">
       <Navbar />
@@ -120,6 +137,12 @@ export const AuthenticatedView = () => {
         <div className="mb-8">
           <SearchBar />
         </div>
+
+        {isAdmin && (
+          <div className="mb-8">
+            <JobCrawler />
+          </div>
+        )}
 
         <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
           <JobListingHeader

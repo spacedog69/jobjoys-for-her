@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import FirecrawlApp from '@mendable/firecrawl-js';
 import { supabase } from "@/integrations/supabase/client";
 
 export const JobCrawler = () => {
@@ -16,9 +17,10 @@ export const JobCrawler = () => {
 
     setIsLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke('crawl-jobs', {
-        body: {
-          url,
+      const firecrawl = new FirecrawlApp();
+      const response = await firecrawl.crawlUrl(url, {
+        limit: 100,
+        scrapeOptions: {
           selectors: {
             title: 'h1.job-title',
             company: '.company-name',
@@ -30,10 +32,28 @@ export const JobCrawler = () => {
         },
       });
 
-      if (error) throw error;
+      if (response.success) {
+        // Insert the crawled jobs into the database
+        const { error } = await supabase
+          .from('Jobs_Directory')
+          .insert(
+            response.data.map((job: any) => ({
+              position: job.title,
+              Company: job.company,
+              location: job.location,
+              JobPost: job.description,
+              contractType: job.type,
+              salary: job.salary,
+              publishedAt: new Date().toISOString(),
+            }))
+          );
 
-      toast.success(`Successfully crawled jobs from ${url}`);
-      setUrl("");
+        if (error) throw error;
+        toast.success(`Successfully crawled jobs from ${url}`);
+        setUrl("");
+      } else {
+        throw new Error("Failed to crawl jobs");
+      }
     } catch (error) {
       console.error('Error crawling jobs:', error);
       toast.error("Failed to crawl jobs. Please check the URL and try again.");
