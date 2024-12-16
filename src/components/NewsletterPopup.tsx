@@ -52,8 +52,8 @@ export const NewsletterPopup = () => {
         <div className="flex flex-col items-center space-y-4">
           <div className="w-full h-48 rounded-lg overflow-hidden mb-4">
             <img
-              src="/lovable-uploads/eafbc6d8-96ef-4610-984c-71c73896d489.png"
-              alt="Woman working on laptop"
+              src="/lovable-uploads/ee000dad-5077-4f9a-89d9-72d6e20afe76.png"
+              alt="Woman working on laptop by the marina"
               className="w-full h-full object-cover"
             />
           </div>
