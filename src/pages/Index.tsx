@@ -11,6 +11,7 @@ import { Reviews } from "@/components/Reviews";
 import { AuthenticatedView } from "@/components/AuthenticatedView";
 import { Features } from "@/components/Features";
 import { JobPreview } from "@/components/JobPreview";
+import { NewsletterPopup } from "@/components/NewsletterPopup";
 
 const Index = () => {
   const session = useSession();
@@ -26,6 +27,7 @@ const Index = () => {
     return (
       <div className="min-h-screen bg-white">
         <Navbar />
+        <NewsletterPopup />
         
         {/* Hero Section */}
         <div className="bg-gradient-to-b from-primary via-primary/70 to-primary/20 pt-40 pb-20">
