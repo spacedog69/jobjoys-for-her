@@ -27,10 +27,17 @@ export function ProfileForm({ profile, type }: ProfileFormProps) {
 
   const updateProfile = useMutation({
     mutationFn: async (data: typeof formData) => {
+      if (!session?.user?.id) throw new Error('No user ID found');
+      
+      const updateData = {
+        ...data,
+        id: session.user.id, // Include the user's ID in the update data
+      };
+
       const { error } = await supabase
         .from('profiles')
-        .update(data)
-        .eq('id', session?.user?.id);
+        .update(updateData)
+        .eq('id', session.user.id);
 
       if (error) throw error;
     },

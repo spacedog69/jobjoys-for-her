@@ -77,21 +77,21 @@ export type Database = {
       }
       newsletter_subscriptions: {
         Row: {
-          id: string
-          email: string
           created_at: string
+          email: string
+          id: string
           is_active: boolean | null
         }
         Insert: {
-          id?: string
-          email: string
           created_at?: string
+          email: string
+          id?: string
           is_active?: boolean | null
         }
         Update: {
-          id?: string
-          email?: string
           created_at?: string
+          email?: string
+          id?: string
           is_active?: boolean | null
         }
         Relationships: []
@@ -125,7 +125,7 @@ export type Database = {
           company_name?: string | null
           created_at?: string
           full_name?: string | null
-          id: string
+          id?: string
           phone_number?: string | null
           username?: string | null
           website?: string | null
@@ -187,7 +187,7 @@ export type Tables<
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
         Database[PublicTableNameOrOptions["schema"]]["Views"])
-    : never,
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
       Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
@@ -199,10 +199,10 @@ export type Tables<
         PublicSchema["Views"])
     ? (PublicSchema["Tables"] &
         PublicSchema["Views"])[PublicTableNameOrOptions] extends {
-      Row: infer R
-    }
-    ? R
-    : never
+        Row: infer R
+      }
+      ? R
+      : never
     : never
 
 export type TablesInsert<
